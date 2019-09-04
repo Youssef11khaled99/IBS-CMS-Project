@@ -2,7 +2,7 @@
 
 namespace CMS_System.Data.Migrations
 {
-    public partial class migration1 : Migration
+    public partial class mv1 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

@@ -12424,11 +12424,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "E:\\IBSValley-Internship\\C#\\Web app using ASP.NET Core MVC\\CMS-System\\CMS-System.csproj",
+      "projectUniqueName": "E:\\IBSValley-Internship\\C#\\Web app using ASP.NET Core MVC\\IBS-CMS-Project\\CMS-System\\CMS-System.csproj",
       "projectName": "CMS-System",
-      "projectPath": "E:\\IBSValley-Internship\\C#\\Web app using ASP.NET Core MVC\\CMS-System\\CMS-System.csproj",
+      "projectPath": "E:\\IBSValley-Internship\\C#\\Web app using ASP.NET Core MVC\\IBS-CMS-Project\\CMS-System\\CMS-System.csproj",
       "packagesPath": "C:\\Users\\RCSC\\.nuget\\packages\\",
-      "outputPath": "E:\\IBSValley-Internship\\C#\\Web app using ASP.NET Core MVC\\CMS-System\\obj\\",
+      "outputPath": "E:\\IBSValley-Internship\\C#\\Web app using ASP.NET Core MVC\\IBS-CMS-Project\\CMS-System\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"

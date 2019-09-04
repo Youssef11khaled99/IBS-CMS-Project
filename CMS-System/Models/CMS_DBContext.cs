@@ -2,15 +2,15 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 
-namespace CMS_System.Model
+namespace CMS_System.Models
 {
-    public partial class IBSCMSContext : DbContext
+    public partial class CMS_DBContext : DbContext
     {
-        public IBSCMSContext()
+        public CMS_DBContext()
         {
         }
 
-        public IBSCMSContext(DbContextOptions<IBSCMSContext> options)
+        public CMS_DBContext(DbContextOptions<CMS_DBContext> options)
             : base(options)
         {
         }
@@ -34,7 +34,7 @@ namespace CMS_System.Model
             if (!optionsBuilder.IsConfigured)
             {
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
-                optionsBuilder.UseSqlServer("Server=DESKTOP-RBQBMMC\\SQLEXPRESS;Database=IBS CMS;Trusted_Connection=True;");
+                optionsBuilder.UseSqlServer("Server=DESKTOP-RBQBMMC\\SQLEXPRESS;Database=CMS_DB;Trusted_Connection=True;User Id=sa;Password=Youssef230199;Integrated Security=false;");
             }
         }
 
@@ -207,9 +207,7 @@ namespace CMS_System.Model
             {
                 entity.ToTable("Widget_Parent");
 
-                entity.Property(e => e.Id)
-                    .HasColumnName("ID")
-                    .ValueGeneratedNever();
+                entity.Property(e => e.Id).HasColumnName("ID");
 
                 entity.Property(e => e.Pid).HasColumnName("PID");
 

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace CMS_System.Model
+namespace CMS_System.Models
 {
     public partial class Languages
     {

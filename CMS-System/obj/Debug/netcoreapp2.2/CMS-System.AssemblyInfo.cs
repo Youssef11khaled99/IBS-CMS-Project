@@ -7,7 +7,7 @@
 using System;
 using System.Reflection;
 
-[assembly: Microsoft.Extensions.Configuration.UserSecrets.UserSecretsIdAttribute("aspnet-CMS_System-87F63F5A-73AF-4A2A-AA02-31D021B4ABCD")]
+[assembly: Microsoft.Extensions.Configuration.UserSecrets.UserSecretsIdAttribute("aspnet-CMS_System-24B9621E-41F7-42E5-B6CC-329B73C711E0")]
 [assembly: System.Reflection.AssemblyCompanyAttribute("CMS-System")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]

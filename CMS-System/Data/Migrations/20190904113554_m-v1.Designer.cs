@@ -9,8 +9,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CMS_System.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20190901152923_migration-1")]
-    partial class migration1
+    [Migration("20190904113554_m-v1")]
+    partial class mv1
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

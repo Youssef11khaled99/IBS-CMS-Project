@@ -7,8 +7,7 @@ using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
-// //DESKTOP-RBQBMMC\SQLEXPRESS
-// dotnet ef dbcontext scaffold "Server=DESKTOP-RBQBMMC\SQLEXPRESS;Database=IBS CMS;Trusted_Connection=True;" Microsoft.EntityFrameworkCore.SqlServer -o Model
+
 namespace CMS_System
 {
     public class Program

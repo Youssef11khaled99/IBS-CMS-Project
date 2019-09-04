@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp2.2</TargetFramework>
-    <UserSecretsId>aspnet-CMS_System-87F63F5A-73AF-4A2A-AA02-31D021B4ABCD</UserSecretsId>
+    <UserSecretsId>aspnet-CMS_System-24B9621E-41F7-42E5-B6CC-329B73C711E0</UserSecretsId>
     <AspNetCoreHostingModel>InProcess</AspNetCoreHostingModel>
     <RootNamespace>CMS_System</RootNamespace>
   </PropertyGroup>

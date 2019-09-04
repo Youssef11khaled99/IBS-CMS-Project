@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace CMS_System.Model
+namespace CMS_System.Models
 {
     public partial class Widget
     {
@@ -21,7 +21,6 @@ namespace CMS_System.Model
         public bool? IsValid { get; set; }
         public int? BaseId { get; set; }
         public bool? IsActive { get; set; }
-        public int TypeId { get; set; }
         public int WidgetTypeId { get; set; }
 
         public virtual WidgetType WidgetType { get; set; }
