@@ -33,8 +33,8 @@ namespace CMS_SYSTEM.Models
         {
             if (!optionsBuilder.IsConfigured)
             {
-#warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
-                optionsBuilder.UseSqlServer("Server=DESKTOP-DPR9681;Database=CMS-PROJECT3;Trusted_Connection=False;Integrated Security=True;MultipleActiveResultSets=true;");
+//#warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
+                optionsBuilder.UseSqlServer("Server=192.168.0.66;Database=CMS-PROJECT3;user id =ibs_internship;password=P@$$w0rd;");
             }
         }
 

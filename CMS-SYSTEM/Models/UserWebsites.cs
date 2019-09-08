@@ -14,6 +14,8 @@ namespace CMS_SYSTEM.Models
         public string CreatedBy { get; set; }
         public string DomainUrl { get; set; }
         public string WebsiteName { get; set; }
+        public bool isDeleted { get; set; }
+       
 
         public virtual ICollection<WidgetParent> WidgetParent { get; set; }
     }
