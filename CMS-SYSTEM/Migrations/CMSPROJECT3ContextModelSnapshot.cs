@@ -263,7 +263,10 @@ namespace CMS_SYSTEM.Migrations
 
                     b.Property<string>("DomainUrl");
 
-                    b.Property<string>("WebsiteName");
+                    b.Property<string>("WebsiteName")
+                        .HasMaxLength(50);
+
+                    b.Property<bool>("isDeleted");
 
                     b.HasKey("Id");
 
@@ -286,7 +289,9 @@ namespace CMS_SYSTEM.Migrations
                         .HasColumnType("datetime");
 
                     b.Property<string>("HtmlBody")
-                        .IsRequired();
+                        .IsRequired()
+                        .ValueGeneratedOnAdd()
+                        .HasDefaultValueSql("(N'')");
 
                     b.Property<bool?>("IsActive");
 
