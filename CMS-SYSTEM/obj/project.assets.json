@@ -12943,11 +12943,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Donia\\source\\repos\\CMS-SYSTEM\\CMS-SYSTEM.csproj",
+      "projectUniqueName": "C:\\Users\\Donia\\Documents\\GitHub\\IBS-CMS-Project\\CMS-SYSTEM\\CMS-SYSTEM.csproj",
       "projectName": "CMS-SYSTEM",
-      "projectPath": "C:\\Users\\Donia\\source\\repos\\CMS-SYSTEM\\CMS-SYSTEM.csproj",
+      "projectPath": "C:\\Users\\Donia\\Documents\\GitHub\\IBS-CMS-Project\\CMS-SYSTEM\\CMS-SYSTEM.csproj",
       "packagesPath": "C:\\Users\\Donia\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Donia\\source\\repos\\CMS-SYSTEM\\obj\\",
+      "outputPath": "C:\\Users\\Donia\\Documents\\GitHub\\IBS-CMS-Project\\CMS-SYSTEM\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"

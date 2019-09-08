@@ -35,12 +35,34 @@ namespace CMS_SYSTEM.Controllers
             db.UserWebsites.Add(userWebsites);
             db.SaveChanges();
 
-            Widget widget = new Widget();
+      //,[Title]
+     
+      //,[CreatedDate]
+      //,[UpdatedDate]
+      //,[CreatedBy]
+      //,[ModifiedBy]
+      //,[WidgetOrdinal]
+      //,[IsValid]
+      //,[BaseId]
+      //,[IsActive]
+      //,[WidgetTypeID]
+      //,[HtmlBody]
+        Widget widget = new Widget();
+             widget.Title = WebsiteName + "-Document";
+            //,[IsPublished]
             widget.CreatedDate = DateTime.Now;
             widget.CreatedBy = currnetUser;
-            widget.Title = WebsiteName + "-Document";
             widget.WidgetOrdinal = 0;
-            widget.WidgetTypeId = 1;
+            try
+            {
+                widget.WidgetTypeId = db.WidgetType.FirstOrDefault(x => x.Name == "Document").Id; ;
+            }
+            catch
+            {
+                WidgetType widgetType = new WidgetType();
+                widgetType.Name = "Documentation";
+                widgetType.Description = "Main Page for any website";
+            }
             widget.HtmlBody = "<!DOCTYPE html>" +
                 "< html lang = 'en' >" +
                     "< head >" +
@@ -52,10 +74,12 @@ namespace CMS_SYSTEM.Controllers
                     "< body >" +
 
                     "</ body >" +
-                "</ html >";
-            db.Widget.Add(widget);
-            db.SaveChanges();
-
+                "</ html >";         
+            
+                db.Widget.Add(widget);
+                db.SaveChanges();
+            
+           
             //int widgetID = db.Widget.FirstOrDefault(x=>x.);
             WidgetParent widgetParent = new WidgetParent();
 
