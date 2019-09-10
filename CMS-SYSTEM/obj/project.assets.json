@@ -12937,23 +12937,23 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\hp\\.nuget\\packages\\": {},
+    "C:\\Users\\RCSC\\.nuget\\packages\\": {},
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "E:\\Internships\\IBS\\Project\\IBS-CMS-Project\\CMS-SYSTEM\\CMS-SYSTEM.csproj",
+      "projectUniqueName": "E:\\IBSValley-Internship\\C#\\IBS-CMS-Project\\CMS-SYSTEM\\CMS-SYSTEM.csproj",
       "projectName": "CMS-SYSTEM",
-      "projectPath": "E:\\Internships\\IBS\\Project\\IBS-CMS-Project\\CMS-SYSTEM\\CMS-SYSTEM.csproj",
-      "packagesPath": "C:\\Users\\hp\\.nuget\\packages\\",
-      "outputPath": "E:\\Internships\\IBS\\Project\\IBS-CMS-Project\\CMS-SYSTEM\\obj\\",
+      "projectPath": "E:\\IBSValley-Internship\\C#\\IBS-CMS-Project\\CMS-SYSTEM\\CMS-SYSTEM.csproj",
+      "packagesPath": "C:\\Users\\RCSC\\.nuget\\packages\\",
+      "outputPath": "E:\\IBSValley-Internship\\C#\\IBS-CMS-Project\\CMS-SYSTEM\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
       ],
       "configFilePaths": [
-        "C:\\Users\\hp\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\RCSC\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [

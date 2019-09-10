@@ -13,6 +13,7 @@ using Microsoft.EntityFrameworkCore;
 using CMS_SYSTEM.Data;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using CMS_SYSTEM.Models;
 
 namespace CMS_SYSTEM
 {
@@ -34,6 +35,10 @@ namespace CMS_SYSTEM
                 options.CheckConsentNeeded = context => true;
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
+
+            services.AddDbContext<CMSPROJECT3Context>(options =>
+                options.UseSqlServer(
+                    Configuration.GetConnectionString("DefaultConnection")));
 
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(
