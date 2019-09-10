@@ -1,0 +1,308 @@
+﻿<button type="button" id="btnAddd" class="btn btn-primary" data-toggle="modal" data-target="#addModal"> Add </button>
+<br />
+<br />
+<table class="table table-striped text-center">
+    <thead>
+        <tr>
+            <th scope="col">Title</th>
+            @*<th scope="col">htmlBody</th>*@
+            <th scope="col">Created Date</th>
+            <th scope="col">Created By</th>
+            <th scope="col">Updated Date</th>
+            <th scope="col">Modified By</th>
+            <th scope="col">Is Published</th>
+            <th scope="col">Is Active</th>
+            <th scope="col">Options</th>
+        </tr>
+    </thead>
+    <tbody class="MyTbody"></tbody>
+</table>
+
+
+<!--Model Add-->
+<div class="container mt-3">
+    <!-- The Modal -->
+    <div class="modal fade" id="addModal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <h4 class="modal-title">Add Widget</h4>
+                    <button type="button" class="close" data-dismiss="modal">×</button>
+                </div>
+
+                <!-- Modal body -->
+                <div class="modal-body">
+
+                    <div class="form-group">
+                        <label class="control-label col-sm-2" for="wTitle">Title:</label>
+                        <div class="col-sm-5">
+                            <input type="text" class="form-control" id="title" placeholder="Title" name="title">
+                        </div>
+                    </div>
+
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-10">
+                                <label class="control-label col-sm-2" for="wHtmlBody">HTML:</label>
+
+                                <textarea class="editor" name="wHtmlBodyAdd" id="wHtmlBodyAdd"></textarea>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <hr />
+
+                    <div class="form-group">
+                        <div class="col-sm-offset-2 col-sm-10">
+                            <button type="submit" id="btnAdd" class="btn btn-success">Add</button>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- Modal footer -->
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<!--Model Edit-->
+<div class="container mt-3">
+    <!-- The Modal -->
+    <div class="modal fade" id="editModel">
+        <div class="modal-dialog">
+            <div class="modal-content">
+
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <h4 class="modal-title">Add Widget</h4>
+                    <button type="button" class="close" data-dismiss="modal">×</button>
+                </div>
+
+                <!-- Modal body -->
+                <div class="modal-body">
+
+                    <div class="form-group">
+                        <label class="control-label col-sm-2" for="wTitle">Title:</label>
+                        <div class="col-sm-5">
+                            <input type="text" class="form-control" id="titleEdit" placeholder="Title" name="title">
+                        </div>
+                    </div>
+
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-10">
+                                <label class="control-label col-sm-2" for="wHtmlBody">HTML:</label>
+
+                                <textarea class="editor" name="wHtmlBodyEdit" id="wHtmlBodyEdit"></textarea>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <hr />
+
+                    <div class="form-group">
+                        <div class="col-sm-offset-2 col-sm-10">
+                            <button type="button" id="btnEdit" class="btn btn-success">Save</button>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- Modal footer -->
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                    <button type="button" class="currentId" hidden id="0"></button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    
+</div>
+
+<script src="~/lib/jquery/dist/jquery.js"></script>
+<script src="~/ckeditor/ckeditor.js"></script>
+<script>
+    var widgetID;
+    AllWidgets();
+
+    function AllWidgets() {
+        $.get('/Widget/GetWidgets', function (data) {
+            var s = "";
+            $.each(data, function (i, v) {
+                s += '<tr id="' + v.id + '">' +
+                    '<td>' + v.title + '</td>' +
+                    //'<td>' + v.htmlBody + '</td>' +
+                    '<td>' + v.createdDate + '</td>' +
+                    '<td>' + v.createdBy + '</td>' +
+                    '<td>' + v.updatedDate + '</td>' +
+                    '<td>' + v.updatedBy + '</td>' +
+                    '<td>' + v.isPublished + '</td>' +
+                    '<td>' + v.isActive + '</td>' +
+                    '<td>' +
+                    '<button type="button" id="' + v.id + '" class="btn btn-warning" data-toggle="modal" onclick="GetWidget(id)" data-target="#editModel">Edit</button>' +
+
+                    //' | '+
+                    '<a href="/widget/details?id=' + v.id + '" class="btn btn-primary">View</a>' +
+                    ' | '+
+                    //'<a href="/widget/edit?id=' + v.id + '" class="btn btn-warning">Edit</a>' +
+                    '</td>' +
+                    '</tr>';
+            });
+            var tbody = $('.MyTbody');
+            if (tbody != null) {
+                tbody.html('');
+            }
+            $('.MyTbody').empty();
+            $('.MyTbody').append(s);
+        });
+    }
+
+
+    
+
+    $("#btnAdd").click(function () {
+
+        var htmlContent = CKEDITOR.instances.wHtmlBodyAdd.getData();
+        //var widgetBody = $("#wHtmlBody").val();
+        var title = $("#title").val();
+
+
+        var obj = {
+            'HtmlBody': htmlContent,
+            'Title': title
+
+        };
+        var PostData = JSON.stringify(obj);
+        $.ajax({
+            type: 'post',
+            dataType: 'json',
+            data: PostData,
+            contentType: 'application/json',
+            url: "/Widget/AddWidget",
+            success: function (data) {
+                if (data == true) {
+                    alert("Done");
+                    $('input').val('');
+                    $('textarea').val('');
+                    $('#addModal').modal('hide');
+                    AllWidgets();
+                }
+                else {
+                    alert("Error !");
+                }
+            },
+            error: function () {
+                alert("Error !");
+                AllWidgets();
+            }
+
+        })
+
+    });
+
+
+
+    function GetWidget(id) {
+        widgetID = id;
+
+        $.ajax({
+            type: 'Get',
+            datatype: 'json',
+            contentType: 'application/json',
+            data: '',
+            url: '/Widget/GetWidget/' + id,
+            success: function (data) {
+                $("#titleEdit").val(data.title);
+                CKEDITOR.instances.wHtmlBodyEdit.insertText(data.htmlBody);
+                //CKEDITOR.instances.wHtmlBodyEdit.innerHtml(data.htmlBody);
+                //CKEDITOR.instances.wHtmlBodyEdit.getData(data.htmlBody);
+                //CKEDITOR.instances.wHtmlBodyEdit.dataType.append(data.htmlBody);
+
+            },
+            error: function () {
+                alert("Error");
+            }
+        });
+    };
+
+    $('#btnEdit').click(function () {
+        var widgetId = widgetID;
+
+        var htmlContent = CKEDITOR.instances.wHtmlBodyEdit.getData();
+        var title = $("#titleEdit").val();
+
+        var obj = {
+            'HtmlBody': htmlContent,
+            'Title': title
+        };
+        var dataPost = JSON.stringify(obj);
+        $.ajax({
+            type: 'Post',
+            datatype: 'json',
+            contentType: 'application/json',
+            data: dataPost,
+            url: '/Widget/EditWidget/' + widgetId,
+            success: function (data) {
+                if (data == true) {
+                    alert("Done");
+                    $('#editModel').modal('hide');
+                   AllWidgets();
+
+                }
+                else {
+                    alert("Error");
+                }
+            },
+            error: function () {
+                alert("Error");
+            }
+        });
+    });
+
+
+    //function GetWidgetId(target) {
+    //    var x = $(target).closest('button');
+    //    var id = $(x).prop('id');
+    //    $('.currentId').prop('id', id);
+        
+    //}
+
+
+
+
+
+
+
+
+
+
+
+
+
+    CKEDITOR.replace("wHtmlBodyAdd");
+    CKEDITOR.editorConfig = function (config) {
+        // Define changes to default configuration here. For example:
+        // config.language = 'fr';
+        // config.uiColor = '#AADC6E';
+        config.toolbar = 'Basic';
+    };
+
+    CKEDITOR.replace("wHtmlBodyEdit");
+    CKEDITOR.editorConfig = function (config) {
+        // Define changes to default configuration here. For example:
+        // config.language = 'fr';
+        // config.uiColor = '#AADC6E';
+        config.toolbar = 'Basic';
+    };
+</script>

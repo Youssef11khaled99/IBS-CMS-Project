@@ -1,6 +1,7 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
+using CMS_SYSTEM.Models.ViewModels;
 
 namespace CMS_SYSTEM.Models
 {
@@ -34,7 +35,10 @@ namespace CMS_SYSTEM.Models
             if (!optionsBuilder.IsConfigured)
             {
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
-                optionsBuilder.UseSqlServer("Server=DESKTOP-DPR9681;Database=CMS-PROJECT3;Trusted_Connection=False;Integrated Security=True;MultipleActiveResultSets=true;");
+                //optionsBuilder.UseSqlServer("DefaultConnection");
+                optionsBuilder.UseLazyLoadingProxies();
+                optionsBuilder.UseSqlServer("Server=192.168.0.66;Database=CMS-PROJECT3;user id=ibs_internship;password=P@$$w0rd;");
+                //optionsBuilder.UseSqlServer("Server=DESKTOP-DPR9681;Database=CMS-PROJECT3;Trusted_Connection=False;Integrated Security=True;MultipleActiveResultSets=true;");
             }
         }
 
@@ -270,5 +274,7 @@ namespace CMS_SYSTEM.Models
                     .HasMaxLength(100);
             });
         }
+
+        public DbSet<CMS_SYSTEM.Models.ViewModels.WidgetViewModel> WidgetViewModel { get; set; }
     }
 }

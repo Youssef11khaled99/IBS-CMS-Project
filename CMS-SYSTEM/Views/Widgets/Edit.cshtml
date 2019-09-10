@@ -1,0 +1,86 @@
+﻿@model CMS_SYSTEM.Models.Widget
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+<h4>Widget</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Id" />
+            <div class="form-group">
+                <label asp-for="Title" class="control-label"></label>
+                <input asp-for="Title" class="form-control" />
+                <span asp-validation-for="Title" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="IsPublished" class="control-label"></label>
+                <input asp-for="IsPublished" class="form-control" />
+                <span asp-validation-for="IsPublished" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CreatedDate" class="control-label"></label>
+                <input asp-for="CreatedDate" class="form-control" />
+                <span asp-validation-for="CreatedDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="UpdatedDate" class="control-label"></label>
+                <input asp-for="UpdatedDate" class="form-control" />
+                <span asp-validation-for="UpdatedDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CreatedBy" class="control-label"></label>
+                <input asp-for="CreatedBy" class="form-control" />
+                <span asp-validation-for="CreatedBy" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ModifiedBy" class="control-label"></label>
+                <input asp-for="ModifiedBy" class="form-control" />
+                <span asp-validation-for="ModifiedBy" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="WidgetOrdinal" class="control-label"></label>
+                <input asp-for="WidgetOrdinal" class="form-control" />
+                <span asp-validation-for="WidgetOrdinal" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="IsValid" class="control-label"></label>
+                <input asp-for="IsValid" class="form-control" />
+                <span asp-validation-for="IsValid" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="BaseId" class="control-label"></label>
+                <input asp-for="BaseId" class="form-control" />
+                <span asp-validation-for="BaseId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="IsActive" class="control-label"></label>
+                <input asp-for="IsActive" class="form-control" />
+                <span asp-validation-for="IsActive" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="WidgetTypeId" class="control-label"></label>
+                <select asp-for="WidgetTypeId" class="form-control" asp-items="ViewBag.WidgetTypeId"></select>
+                <span asp-validation-for="WidgetTypeId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="HtmlBody" class="control-label"></label>
+                <input asp-for="HtmlBody" class="form-control" />
+                <span asp-validation-for="HtmlBody" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+

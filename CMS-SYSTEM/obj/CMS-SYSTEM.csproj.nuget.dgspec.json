@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Donia\\source\\repos\\CMS-SYSTEM\\CMS-SYSTEM.csproj": {}
+    "D:\\IBS\\Core Project\\CMS-SYSTEM\\CMS-SYSTEM.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Donia\\source\\repos\\CMS-SYSTEM\\CMS-SYSTEM.csproj": {
+    "D:\\IBS\\Core Project\\CMS-SYSTEM\\CMS-SYSTEM.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Donia\\source\\repos\\CMS-SYSTEM\\CMS-SYSTEM.csproj",
+        "projectUniqueName": "D:\\IBS\\Core Project\\CMS-SYSTEM\\CMS-SYSTEM.csproj",
         "projectName": "CMS-SYSTEM",
-        "projectPath": "C:\\Users\\Donia\\source\\repos\\CMS-SYSTEM\\CMS-SYSTEM.csproj",
-        "packagesPath": "C:\\Users\\Donia\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Donia\\source\\repos\\CMS-SYSTEM\\obj\\",
+        "projectPath": "D:\\IBS\\Core Project\\CMS-SYSTEM\\CMS-SYSTEM.csproj",
+        "packagesPath": "C:\\Users\\Maj ED\\.nuget\\packages\\",
+        "outputPath": "D:\\IBS\\Core Project\\CMS-SYSTEM\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
         ],
         "configFilePaths": [
-          "C:\\Users\\Donia\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Maj ED\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -41,6 +41,14 @@
       "frameworks": {
         "netcoreapp2.2": {
           "dependencies": {
+            "CKEditor": {
+              "target": "Package",
+              "version": "[3.6.4, )"
+            },
+            "Microsoft.AspNet.Mvc": {
+              "target": "Package",
+              "version": "[5.2.7, )"
+            },
             "Microsoft.AspNetCore.App": {
               "suppressParent": "All",
               "target": "Package",
@@ -51,6 +59,10 @@
               "suppressParent": "All",
               "target": "Package",
               "version": "[2.2.0, )"
+            },
+            "Microsoft.EntityFrameworkCore.Proxies": {
+              "target": "Package",
+              "version": "[2.2.6, )"
             },
             "Microsoft.NETCore.App": {
               "suppressParent": "All",
