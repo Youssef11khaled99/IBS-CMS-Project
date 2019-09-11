@@ -127,14 +127,21 @@
             </div>
         </div>
     </div>
-    
+
 </div>
+
+<textarea id="editor" placeholder="Balabala" autofocus></textarea>
 
 <script src="~/lib/jquery/dist/jquery.js"></script>
 <script src="~/ckeditor/ckeditor.js"></script>
+
+
+
 <script>
     var widgetID;
     AllWidgets();
+
+
 
     function AllWidgets() {
         $.get('/Widget/GetWidgets', function (data) {
@@ -151,10 +158,9 @@
                     '<td>' + v.isActive + '</td>' +
                     '<td>' +
                     '<button type="button" id="' + v.id + '" class="btn btn-warning" data-toggle="modal" onclick="GetWidget(id)" data-target="#editModel">Edit</button>' +
-
-                    //' | '+
+                    ' | ' +
                     '<a href="/widget/details?id=' + v.id + '" class="btn btn-primary">View</a>' +
-                    ' | '+
+                    //' | ' +
                     //'<a href="/widget/edit?id=' + v.id + '" class="btn btn-warning">Edit</a>' +
                     '</td>' +
                     '</tr>';
@@ -169,7 +175,7 @@
     }
 
 
-    
+
 
     $("#btnAdd").click(function () {
 
@@ -224,7 +230,7 @@
             url: '/Widget/GetWidget/' + id,
             success: function (data) {
                 $("#titleEdit").val(data.title);
-                CKEDITOR.instances.wHtmlBodyEdit.insertText(data.htmlBody);
+                //CKEDITOR.instances.wHtmlBodyEdit.insertText(data.htmlBody);
                 //CKEDITOR.instances.wHtmlBodyEdit.innerHtml(data.htmlBody);
                 //CKEDITOR.instances.wHtmlBodyEdit.getData(data.htmlBody);
                 //CKEDITOR.instances.wHtmlBodyEdit.dataType.append(data.htmlBody);
@@ -257,7 +263,7 @@
                 if (data == true) {
                     alert("Done");
                     $('#editModel').modal('hide');
-                   AllWidgets();
+                    AllWidgets();
 
                 }
                 else {
@@ -275,7 +281,7 @@
     //    var x = $(target).closest('button');
     //    var id = $(x).prop('id');
     //    $('.currentId').prop('id', id);
-        
+
     //}
 
 
@@ -290,19 +296,20 @@
 
 
 
-    CKEDITOR.replace("wHtmlBodyAdd");
-    CKEDITOR.editorConfig = function (config) {
-        // Define changes to default configuration here. For example:
-        // config.language = 'fr';
-        // config.uiColor = '#AADC6E';
-        config.toolbar = 'Basic';
-    };
+    //CKEDITOR.replace("wHtmlBodyAdd");
+    //CKEDITOR.editorConfig = function (config) {
+    //    // Define changes to default configuration here. For example:
+    //    // config.language = 'fr';
+    //    // config.uiColor = '#AADC6E';
+    //    config.toolbar = 'Basic';
+    //};
 
-    CKEDITOR.replace("wHtmlBodyEdit");
-    CKEDITOR.editorConfig = function (config) {
-        // Define changes to default configuration here. For example:
-        // config.language = 'fr';
-        // config.uiColor = '#AADC6E';
-        config.toolbar = 'Basic';
-    };
+    //CKEDITOR.replace("wHtmlBodyEdit");
+    //CKEDITOR.editorConfig = function (config) {
+    //    // Define changes to default configuration here. For example:
+    //    // config.language = 'fr';
+    //    // config.uiColor = '#AADC6E';
+    //    config.toolbar = 'Basic';
+    //};
 </script>
+
