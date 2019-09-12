@@ -36,7 +36,16 @@ namespace CMS_SYSTEM
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
-   
+            services.AddDistributedMemoryCache();
+            services.AddSession(options =>
+            {
+                // Set a short timeout for easy testing.
+                options.IdleTimeout = TimeSpan.FromMinutes(10);
+                options.Cookie.HttpOnly = true;
+                // Make the session cookie essential
+                options.Cookie.IsEssential = true;
+            });
+
             services.AddDbContext<CMSPROJECT3Context>(options =>
                 options.UseSqlServer(
                     
@@ -69,6 +78,8 @@ namespace CMS_SYSTEM
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
+            app.UseSession();
+
             app.UseCookiePolicy();
 
             app.UseAuthentication();

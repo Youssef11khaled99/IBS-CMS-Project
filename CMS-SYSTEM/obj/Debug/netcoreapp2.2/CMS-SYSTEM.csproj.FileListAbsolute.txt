@@ -142,3 +142,9 @@ D:\IBS\Core Project\CMS-SYSTEM\obj\Debug\netcoreapp2.2\Razor\Views\Widgets\Detai
 D:\IBS\Core Project\CMS-SYSTEM\obj\Debug\netcoreapp2.2\Razor\Views\Widgets\Edit.g.cshtml.cs
 D:\IBS\Core Project\CMS-SYSTEM\obj\Debug\netcoreapp2.2\Razor\Views\Widgets\Index.g.cshtml.cs
 D:\IBS\Core Project\CMS-SYSTEM\obj\Debug\netcoreapp2.2\Razor\Views\Widget\Edit.g.cshtml.cs
+D:\IBS\Core Project\CMS-SYSTEM\obj\Debug\netcoreapp2.2\Razor\Views\Contents\Create.g.cshtml.cs
+D:\IBS\Core Project\CMS-SYSTEM\obj\Debug\netcoreapp2.2\Razor\Views\Contents\Delete.g.cshtml.cs
+D:\IBS\Core Project\CMS-SYSTEM\obj\Debug\netcoreapp2.2\Razor\Views\Contents\Details.g.cshtml.cs
+D:\IBS\Core Project\CMS-SYSTEM\obj\Debug\netcoreapp2.2\Razor\Views\Contents\Edit.g.cshtml.cs
+D:\IBS\Core Project\CMS-SYSTEM\obj\Debug\netcoreapp2.2\Razor\Views\Contents\Index.g.cshtml.cs
+D:\IBS\Core Project\CMS-SYSTEM\obj\Debug\netcoreapp2.2\Razor\Views\Contents\LinkTo.g.cshtml.cs
