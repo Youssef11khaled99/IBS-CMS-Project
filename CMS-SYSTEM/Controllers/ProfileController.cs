@@ -21,19 +21,38 @@ namespace CMS_SYSTEM.Controllers
         }
         // GET: UserProfile
         [HttpGet]
-        public async Task<IActionResult> Index()
+        public IActionResult Index()
         {
-            var currentUser = User.Identity.Name;
-            var data = await _context.Websites.Where(x => x.CreatedBy == currentUser).ToListAsync();
-            if (data != null)
-            {
-                return View(data);
-            }
-            else
-            {
-                return NotFound();
-            }
+            //var data = await _context.Websites.Where(x => x.CreatedBy == currentUser).ToListAsync();
 
+            /* Select List Of Websites From many to many Table (UserWebsites)
+             * where the user email 
+            */
+
+            return View();
+            
+
+        }
+
+        public JsonResult GetWebsites()
+        {
+            var currentUserEmail = _context.AspNetUsers.SingleOrDefault(u => u.UserName == User.Identity.Name).Email;
+            var WebsitesData = (from userWebsites in _context.UserWebsites
+                        join websites in _context.Websites
+                        on userWebsites.WebsiteId equals websites.Id
+                        where userWebsites.UserEmail == currentUserEmail
+                        where websites.IsDeleted == false
+                        select new
+                        {
+                            id = websites.Id,
+                            name = websites.WebsiteName == null ? "" : websites.WebsiteName,
+                            createdBy = websites.CreatedBy == null ? "" : websites.CreatedBy,
+                            domainUrl = websites.DomainUrl == null ? "" : websites.DomainUrl,
+                            isDeleted = websites.IsDeleted
+
+                        }).ToList();
+
+            return Json(WebsitesData);
         }
 
         // GET: UserProfile/Details/5
