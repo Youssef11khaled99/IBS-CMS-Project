@@ -43,7 +43,6 @@ namespace CMS_SYSTEM
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
-
             services.AddDefaultIdentity<IdentityUser>()
                 .AddDefaultUI(UIFramework.Bootstrap4)
                 .AddEntityFrameworkStores<ApplicationDbContext>();
@@ -52,7 +51,7 @@ namespace CMS_SYSTEM
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, IServiceProvider serviceProvider)
         {
             if (env.IsDevelopment())
             {
@@ -69,15 +68,54 @@ namespace CMS_SYSTEM
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseCookiePolicy();
-
             app.UseAuthentication();
-               
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
             });
+      
+           // app.UseIdentity();         
+            //CreateRoles(serviceProvider).GetAwaiter().GetResult();
         }
+
+        //private async Task CreateRoles(IServiceProvider serviceProvider)
+        //{
+        //    //adding custom roles
+        //    var RoleManager = serviceProvider.GetRequiredService<RoleManager<IdentityRole>>();
+        //    var UserManager = serviceProvider.GetRequiredService<UserManager<ApplicationUser>>();
+        //    string[] roleNames = { "Admin",  "Member" , "ContentManager"};
+        //    IdentityResult roleResult;
+            
+        //    foreach (var roleName in roleNames)
+        //    {
+        //        //creating the roles and seeding them to the database
+        //        var roleExist = await RoleManager.RoleExistsAsync(roleName);
+        //        if (!roleExist)
+        //        {
+        //            roleResult = await RoleManager.CreateAsync(new IdentityRole(roleName));
+        //        }
+        //    }
+        //    //creating a super user who could maintain the web app
+        //    var poweruser = new ApplicationUser
+        //    {
+        //        UserName = Configuration.GetSection("UserSettings")["UserEmail"],
+        //        Email = Configuration.GetSection("UserSettings")["UserEmail"]
+        //    };
+        //    string UserPassword = Configuration.GetSection("UserSettings")["UserPassword"];
+        //    var _user = await UserManager.FindByEmailAsync(Configuration.GetSection("UserSettings")["UserEmail"]);
+        //    if(_user == null)
+        //    {
+        //        var createPowerUser = await UserManager.CreateAsync(poweruser, UserPassword);
+        //        if (createPowerUser.Succeeded)
+        //        {
+        //            //here we tie the new user to the "Admin" role 
+        //            await UserManager.AddToRoleAsync(poweruser, "Admin");
+        //        }
+        //    }
+
+        //}
+
     }
 }

@@ -1,10 +1,10 @@
-﻿@model IEnumerable<CMS_SYSTEM.Models.UserWebsites>
-
+﻿@model  IEnumerable<CMS_SYSTEM.Models.Websites>
 @{
     ViewData["Title"] = "Index";
 }
 
 <h1>Index</h1>
+
 
 <p>
     <a asp-action="Create">Create New</a>
@@ -27,7 +27,7 @@
     <tbody>
         @foreach (var item in Model)
         {
-            @if (item.isDeleted == false)
+            @if (item.IsDeleted == false)
             {
                 <tr>
                     <td>

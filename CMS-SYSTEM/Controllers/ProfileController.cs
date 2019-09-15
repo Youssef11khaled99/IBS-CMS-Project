@@ -2,27 +2,29 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using CMS_SYSTEM.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using CMS_SYSTEM.Models;
 
 namespace CMS_SYSTEM.Controllers
 {
+    [Authorize]
+
     public class ProfileController : Controller
     {
         private readonly CMSPROJECT3Context _context;
-
         public ProfileController(CMSPROJECT3Context context)
         {
-            _context = context; 
+            _context = context;
         }
-
         // GET: UserProfile
+        [HttpGet]
         public async Task<IActionResult> Index()
         {
             var currentUser = User.Identity.Name;
-            var data = await _context.UserWebsites.Where(x => x.CreatedBy == currentUser).ToListAsync();
+            var data = await _context.Websites.Where(x => x.CreatedBy == currentUser).ToListAsync();
             if (data != null)
             {
                 return View(data);
@@ -31,7 +33,7 @@ namespace CMS_SYSTEM.Controllers
             {
                 return NotFound();
             }
-            
+
         }
 
         // GET: UserProfile/Details/5
@@ -42,39 +44,57 @@ namespace CMS_SYSTEM.Controllers
                 return NotFound();
             }
 
-            var userWebsites = await _context.UserWebsites
+            var websites = await _context.Websites
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (userWebsites == null)
+            if (websites == null)
             {
                 return NotFound();
             }
 
-            return View(userWebsites);
+            return View(websites);
         }
 
+        [HttpGet]
         // GET: UserProfile/Create
         public IActionResult Create()
         {
             return View();
         }
 
+
         // POST: UserProfile/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,CreatedBy,DomainUrl,WebsiteName")] UserWebsites userWebsites)
+        public async Task<IActionResult> Create( Websites websites)
         {
+            //([Bind("Id,CreatedBy,DomainUrl,WebsiteName")] Websites websites)
             if (ModelState.IsValid)
             {
-                _context.Add(userWebsites);
-                await _context.SaveChangesAsync();
+                _context.Add(websites);
+                var websiteID = websites.Id;
                 Widget widget = new Widget();
                 widget.CreatedDate = DateTime.Now;
                 widget.CreatedBy = User.Identity.Name;
-                widget.Title = userWebsites.WebsiteName + "-Document";
+                widget.Title = websites.WebsiteName + "-Document";
                 widget.WidgetOrdinal = 0;
-                widget.WidgetTypeId = 1;
+                try
+                {
+                    int widgettypeid = _context.WidgetType.SingleOrDefault(x => x.Name == "Document").Id;
+                    widget.WidgetTypeId = widgettypeid;
+                }
+                catch
+                {
+                    WidgetType widgetType = new WidgetType();
+                    widgetType.Name = "Document";
+                    widgetType.Description = "Base Page for any website";
+                    widgetType.Section = "Body";
+                    _context.Add(widgetType);
+                    await _context.SaveChangesAsync();
+                    int widgettypeid = _context.WidgetType.SingleOrDefault(x => x.Name == "Document").Id;
+                    widget.WidgetTypeId = widgettypeid;
+                }
                 widget.HtmlBody = "<!DOCTYPE html>" +
                     "< html lang = 'en' >" +
                         "< head >" +
@@ -87,12 +107,21 @@ namespace CMS_SYSTEM.Controllers
 
                         "</ body >" +
                     "</ html >";
-                _context.Add(widget);
+               
+                    _context.Add(widget);
+                    await _context.SaveChangesAsync();
+                 
+                UserWebsites userWebsites = new UserWebsites();
+                userWebsites.WebsiteId = websiteID;
+                userWebsites.UserEmail = User.Identity.Name;
+                _context.Add(userWebsites);
                 await _context.SaveChangesAsync();
+
                 return RedirectToAction(nameof(Index));
             }
-            return View(userWebsites);
+            return View(websites);
         }
+
 
         // GET: UserProfile/Edit/5
         public async Task<IActionResult> Edit(int? id)
@@ -102,22 +131,21 @@ namespace CMS_SYSTEM.Controllers
                 return NotFound();
             }
 
-            var userWebsites = await _context.UserWebsites.FindAsync(id);
-            if (userWebsites == null)
+            var websites = await _context.Websites.FindAsync(id);
+            if (websites == null)
             {
                 return NotFound();
             }
-            return View(userWebsites);
+            return View(websites);
         }
-
         // POST: UserProfile/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,CreatedBy,DomainUrl,WebsiteName")] UserWebsites userWebsites)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,CreatedBy,DomainUrl,WebsiteName")] Websites websites)
         {
-            if (id != userWebsites.Id)
+            if (id != websites.Id)
             {
                 return NotFound();
             }
@@ -126,12 +154,12 @@ namespace CMS_SYSTEM.Controllers
             {
                 try
                 {
-                    _context.Update(userWebsites);
+                    _context.Update(websites);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!UserWebsitesExists(userWebsites.Id))
+                    if (!WebsitesExists(websites.Id))
                     {
                         return NotFound();
                     }
@@ -142,9 +170,8 @@ namespace CMS_SYSTEM.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(userWebsites);
+            return View(websites);
         }
-
         // GET: UserProfile/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
@@ -153,34 +180,31 @@ namespace CMS_SYSTEM.Controllers
                 return NotFound();
             }
 
-            var userWebsites = await _context.UserWebsites
+            var websites = await _context.Websites
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (userWebsites == null)
+            if (websites == null)
             {
                 return NotFound();
             }
 
-            return View(userWebsites);
+            return View(websites);
         }
-
-        // POST: UserProfile/Delete/5
+        private bool WebsitesExists(int id)
+        {
+            return _context.Websites.Any(e => e.Id == id);
+        }
+        // POST: UserProfile/Delete/5   
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var userWebsites = await _context.UserWebsites.FindAsync(id);
-            userWebsites.isDeleted = true;
-            _context.Update(userWebsites);
+            var websites = await _context.Websites.FindAsync(id);
+            websites.IsDeleted = true;
+            _context.Update(websites);
             //_context.UserWebsites.Remove(userWebsites);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
-
-        private bool UserWebsitesExists(int id)
-        {
-            return _context.UserWebsites.Any(e => e.Id == id);
-        }
-
         public async Task<IActionResult> Open(int? id)
         {
             if (id == null)
@@ -188,14 +212,16 @@ namespace CMS_SYSTEM.Controllers
                 return NotFound();
             }
 
-            var userWebsites = await _context.UserWebsites
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (userWebsites == null)
+            var websites = await _context.Websites.FirstOrDefaultAsync(m => m.Id == id);
+            if (websites == null)
             {
                 return NotFound();
             }
 
-            return View(userWebsites);
+            return View(websites);
         }
+
+  
+
     }
 }

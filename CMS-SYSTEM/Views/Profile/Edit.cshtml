@@ -1,12 +1,12 @@
-﻿@model CMS_SYSTEM.Models.UserWebsites
-
+﻿@model CMS_SYSTEM.Models.Websites
 @{
     ViewData["Title"] = "Edit";
 }
 
+
 <h1>Edit</h1>
 
-<h4>UserWebsites</h4>
+<h4>Websites</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -15,7 +15,7 @@
             <input type="hidden" asp-for="Id" />
             <div class="form-group">
                 <label asp-for="CreatedBy" class="control-label"></label>
-                <input asp-for="CreatedBy" class="form-control" readonly/>
+                <input asp-for="CreatedBy" class="form-control" readonly />
                 <span asp-validation-for="CreatedBy" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -33,4 +33,6 @@
 <div>
     <a asp-action="Index">Back to List</a>
 </div>
+
+
 
