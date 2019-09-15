@@ -1,53 +1,120 @@
-﻿@model  IEnumerable<CMS_SYSTEM.Models.Websites>
+﻿@*@model IEnumerable<CMS_SYSTEM.Models.Websites>*@
 @{
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
+<h1>Websites List</h1>
+<br />
+<br />
+<hr />
 
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
+@*@if (Model.Count() == 0)
+    {
+        <h2>
+            There Is Now Websites Yet
+
+            <p>
+                <a asp-action="Create">Create New</a>
+            </p>
+        </h2>
+    }
+    else
+    {
+        <p>
+            <a asp-action="Create">Create New</a>
+        </p>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.CreatedBy)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.DomainUrl)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.WebsiteName)
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    @if (item.IsDeleted == false)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.CreatedBy)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.DomainUrl)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.WebsiteName)
+                            </td>
+                            <td>
+                                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a> |
+                                <a asp-action="Open" asp-route-id="@item.Id">Open</a>
+                            </td>
+                        </tr>
+
+                    }
+                }
+            </tbody>
+        </table>
+
+    }*@
+
+
+<table class="table table-striped table-bordered text-center">
     <thead>
         <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.CreatedBy)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.DomainUrl)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.WebsiteName)
-            </th>
-            <th></th>
+            <th scope="col">Name</th>
+            <th scope="col">Created By</th>
+            <th scope="col">Domain URL</th>
+            <th scope="col">Is Deleted</th>
+            <th scope="col">Options</th>
         </tr>
     </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
-            @if (item.IsDeleted == false)
-            {
-                <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.CreatedBy)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.DomainUrl)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.WebsiteName)
-                    </td>
-                    <td>
-                        <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                        <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                        <a asp-action="Delete" asp-route-id="@item.Id">Delete</a> |
-                        <a asp-action="Open" asp-route-id="@item.Id">Open</a>
-                    </td>
-                </tr>
-
-            }
-        }
-    </tbody>
+    <tbody class="MyTbody"></tbody>
 </table>
+
+<script src="~/lib/jquery/dist/jquery.js"></script>
+
+<script>
+
+
+    AllWebsites();
+    function AllWebsites() {
+        $.get('/Profile/GetWebsites', function (data) {
+            var s = "";
+            $.each(data, function (i, v) {
+                s += '<tr id="' + v.id + '">' +
+                    '<td>' + v.name + '</td>' +
+                    '<td>' + v.createdBy + '</td>' +
+                    '<td>' + v.domainUrl + '</td>' +
+                    '<td>' + v.isDeleted + '</td>' +
+                    '<td>' +
+                    //'<button type="button" id="' + v.id + '" class="btn btn-warning" data-toggle="modal" onclick="GetWidget(id)" data-target="#editModel">Edit</button>' +
+                    //' | ' +
+                    //'<a href="/widget/details?id=' + v.id + '" class="btn btn-primary">View</a>' +
+
+                    '<a href="/Contents/Index?websiteId=' + v.id + '" class="btn btn-info" onclick="GetWidget(id)">Add Widgets</a>' +
+
+                    '</td>' +
+                    '</tr>';
+            });
+            var tbody = $('.MyTbody');
+            if (tbody != null) {
+                tbody.html('');
+            }
+            $('.MyTbody').empty();
+            $('.MyTbody').append(s);
+        });
+    }
+
+</script>
