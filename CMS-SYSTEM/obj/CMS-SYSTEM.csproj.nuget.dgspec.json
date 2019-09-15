@@ -41,6 +41,14 @@
       "frameworks": {
         "netcoreapp2.2": {
           "dependencies": {
+            "CKEditor": {
+              "target": "Package",
+              "version": "[3.6.4, )"
+            },
+            "Microsoft.AspNet.Mvc": {
+              "target": "Package",
+              "version": "[5.2.7, )"
+            },
             "Microsoft.AspNetCore.App": {
               "suppressParent": "All",
               "target": "Package",
@@ -51,6 +59,10 @@
               "suppressParent": "All",
               "target": "Package",
               "version": "[2.2.0, )"
+            },
+            "Microsoft.EntityFrameworkCore.Proxies": {
+              "target": "Package",
+              "version": "[2.2.6, )"
             },
             "Microsoft.NETCore.App": {
               "suppressParent": "All",

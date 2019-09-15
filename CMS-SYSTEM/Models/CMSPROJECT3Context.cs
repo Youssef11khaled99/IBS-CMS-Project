@@ -1,6 +1,7 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
+using CMS_SYSTEM.Models.ViewModels;
 
 namespace CMS_SYSTEM.Models
 {
@@ -25,7 +26,6 @@ namespace CMS_SYSTEM.Models
         public virtual DbSet<Content> Content { get; set; }
         public virtual DbSet<Languages> Languages { get; set; }
         public virtual DbSet<UserWebsites> UserWebsites { get; set; }
-        public virtual DbSet<Websites> Websites { get; set; }
         public virtual DbSet<Widget> Widget { get; set; }
         public virtual DbSet<WidgetParent> WidgetParent { get; set; }
         public virtual DbSet<WidgetType> WidgetType { get; set; }
@@ -35,7 +35,10 @@ namespace CMS_SYSTEM.Models
             if (!optionsBuilder.IsConfigured)
             {
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
-                optionsBuilder.UseSqlServer("Server=192.168.0.66;Database=CMS-PROJECT3; user id =ibs_internship ;password=donya1234;  ");
+                //optionsBuilder.UseSqlServer("DefaultConnection");
+                optionsBuilder.UseLazyLoadingProxies();
+                optionsBuilder.UseSqlServer("Server=192.168.0.66;Database=CMS-PROJECT3;user id=ibs_internship;password=P@$$w0rd;");
+                //optionsBuilder.UseSqlServer("Server=DESKTOP-DPR9681;Database=CMS-PROJECT3;Trusted_Connection=False;Integrated Security=True;MultipleActiveResultSets=true;");
             }
         }
 
@@ -182,12 +185,6 @@ namespace CMS_SYSTEM.Models
                     .HasForeignKey(d => d.Lid)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_Content_Languages");
-
-                entity.HasOne(d => d.P)
-                    .WithMany(p => p.Content)
-                    .HasForeignKey(d => d.Pid)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_Content_Widget_Parent");
             });
 
             modelBuilder.Entity<Languages>(entity =>
@@ -205,22 +202,9 @@ namespace CMS_SYSTEM.Models
 
                 entity.Property(e => e.Id).HasColumnName("ID");
 
-                entity.Property(e => e.UserEmail)
-                    .IsRequired()
-                    .HasMaxLength(256);
-
-                entity.Property(e => e.WebsiteId).HasColumnName("websiteID");
-            });
-
-            modelBuilder.Entity<Websites>(entity =>
-            {
-                entity.Property(e => e.Id).HasColumnName("ID");
-
                 entity.Property(e => e.CreatedBy)
                     .IsRequired()
                     .HasMaxLength(100);
-
-                entity.Property(e => e.IsDeleted).HasColumnName("isDeleted");
 
                 entity.Property(e => e.WebsiteName).HasMaxLength(50);
             });
@@ -233,7 +217,9 @@ namespace CMS_SYSTEM.Models
 
                 entity.Property(e => e.CreatedDate).HasColumnType("datetime");
 
-                entity.Property(e => e.HtmlBody).IsRequired();
+                entity.Property(e => e.HtmlBody)
+                    .IsRequired()
+                    .HasDefaultValueSql("(N'')");
 
                 entity.Property(e => e.ModifiedBy).HasMaxLength(100);
 
@@ -260,15 +246,15 @@ namespace CMS_SYSTEM.Models
 
                 entity.Property(e => e.Pid).HasColumnName("PID");
 
-                entity.Property(e => e.WebsitesId).HasColumnName("WebsitesID");
+                entity.Property(e => e.UserWebsitesId).HasColumnName("UserWebsitesID");
 
                 entity.Property(e => e.Wid).HasColumnName("WID");
 
-                entity.HasOne(d => d.Websites)
+                entity.HasOne(d => d.UserWebsites)
                     .WithMany(p => p.WidgetParent)
-                    .HasForeignKey(d => d.WebsitesId)
+                    .HasForeignKey(d => d.UserWebsitesId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_Widget_Parent_Websites");
+                    .HasConstraintName("FK_Widget_Parent_User_Websites");
 
                 entity.HasOne(d => d.W)
                     .WithMany(p => p.WidgetParent)
@@ -286,9 +272,9 @@ namespace CMS_SYSTEM.Models
                 entity.Property(e => e.Name)
                     .IsRequired()
                     .HasMaxLength(100);
-
-                entity.Property(e => e.Section).HasMaxLength(50);
             });
         }
+
+        public DbSet<CMS_SYSTEM.Models.ViewModels.WidgetViewModel> WidgetViewModel { get; set; }
     }
 }
