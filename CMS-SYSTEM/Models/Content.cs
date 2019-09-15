@@ -20,5 +20,6 @@ namespace CMS_SYSTEM.Models
         public int Pid { get; set; }
 
         public virtual Languages L { get; set; }
+        public virtual WidgetParent P { get; set; }
     }
 }
