@@ -67,7 +67,7 @@ namespace CMS_SYSTEM.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create( Websites websites)
+        public async Task<IActionResult> Create(Websites websites)
         {
             //([Bind("Id,CreatedBy,DomainUrl,WebsiteName")] Websites websites)
             if (ModelState.IsValid)
@@ -107,10 +107,10 @@ namespace CMS_SYSTEM.Controllers
 
                         "</ body >" +
                     "</ html >";
-               
-                    _context.Add(widget);
-                    await _context.SaveChangesAsync();
-                 
+
+                _context.Add(widget);
+                await _context.SaveChangesAsync();
+
                 UserWebsites userWebsites = new UserWebsites();
                 userWebsites.WebsiteId = websiteID;
                 userWebsites.UserEmail = User.Identity.Name;
@@ -221,7 +221,7 @@ namespace CMS_SYSTEM.Controllers
             return View(websites);
         }
 
-  
+
 
     }
 }

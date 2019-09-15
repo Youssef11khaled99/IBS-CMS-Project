@@ -29,13 +29,13 @@ namespace CMS_SYSTEM.Controllers
         }
 
         // GET: Contents
-        public  IActionResult Index(int websiteId)
+        public IActionResult Index(int websiteId)
         {
-            
+
             HttpContext.Session.SetInt32("currentWebsiteId", websiteId);
             //var testId = HttpContext.Session.GetInt32("currentWebsiteId");
 
-            return RedirectToAction("Create", "Contents",new { id= websiteId });
+            return RedirectToAction("Create", "Contents", new { id = websiteId });
         }
 
         // GET: Contents/Details/5
@@ -95,7 +95,7 @@ namespace CMS_SYSTEM.Controllers
 
                     widgetParent.Pid = 6;
                     widgetParent.Wid = selectedWidgetID;
-                    widgetParent.UserWebsitesId = websiteId;
+                    widgetParent.WebsitesId = websiteId;
 
                     _context.WidgetParent.Add(widgetParent);
                     await _context.SaveChangesAsync();
@@ -114,7 +114,7 @@ namespace CMS_SYSTEM.Controllers
                     return View();
                 }
             }
-           
+
             //ViewData["Lid"] = new SelectList(_context.Languages, "Id", "Name", content.Lid);
             return View(model);
         }
