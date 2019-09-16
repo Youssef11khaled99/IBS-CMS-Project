@@ -18,16 +18,29 @@
                 <input readonly asp-for="WebsiteId" class="form-control" />
             </div>
 
-            @*<div class="form-group">
-                    <label asp-for="Title" class="control-label"></label>
-                    <input asp-for="Title" class="form-control" />
-                    <span asp-validation-for="Title" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="Title" class="control-label"></label>
-                    <input asp-for="Title" class="form-control" />
-                    <span asp-validation-for="Title" class="text-danger"></span>
-                </div>*@
+            <div class="form-group">
+                <label asp-for="Title" class="control-label"></label>
+                <input asp-for="Title" class="form-control" />
+                <span asp-validation-for="Title" class="text-danger"></span>
+
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Name" class="control-label"></label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+
+            </div>
+
+            <div class="form-group">
+                <label asp-for="MetaDesc" class="control-label"></label>
+                <input asp-for="MetaDesc" class="form-control" />
+                <span asp-validation-for="MetaDesc" class="text-danger"></span>
+
+            </div>
+
+           
+
             <div class="form-group">
                 <label asp-for="SelectedWidgetId" class="control-label"></label>
                 <select asp-for="SelectedWidgetId" class="form-control" asp-items="ViewBag.WidgetsList"></select>
@@ -41,6 +54,6 @@
 </div>
 
 <div>
-    <a href="/Contents/Index?WebsiteId=@Model.WebsiteId">Back to List</a>
+    <a href="/Contents/Index?WebsiteId=@ViewBag.WebId">Back to List</a>
 </div>
 

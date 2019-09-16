@@ -72,7 +72,7 @@ namespace CMS_SYSTEM.Controllers
             {
                 return NotFound();
             }
-
+            ViewBag.WebId = _context.WidgetParent.SingleOrDefault(x => x.Id == content.Pid).WebsitesId;
             return View(content);
         }
 
@@ -83,6 +83,7 @@ namespace CMS_SYSTEM.Controllers
             model.WebsiteId = id;
             ViewData["Lid"] = new SelectList(_context.Languages, "Id", "Name");
             ViewBag.WidgetsList = new SelectList(_context.Widget.Where(w => !w.Title.Contains("Document")), "Id", "Title");
+            ViewBag.WebId = id;
             return View(model);
         }
 
@@ -128,17 +129,29 @@ namespace CMS_SYSTEM.Controllers
                     var currentWidgetParentId = widgetParent.Id;
                     //
 
+                    var widgetData = _context.Widget.SingleOrDefault(w => w.Id == selectedWidgetID);
+                    var userData = _context.AspNetUsers.SingleOrDefault(u => u.UserName == User.Identity.Name);
 
                     Content content = new Content();
-                    content.Body = model.HtmlBody;
+                    content.Body = widgetData.HtmlBody;
+                    content.Lid = 1;
+                    content.Name = model.Name;
+                    content.CreatedBy = userData.Email;
+                    content.Title = model.Title;
+                    content.MetaDescription = model.MetaDesc;
+                    content.BaseWidgetId = widgetData.Id;
                     content.Pid = currentWidgetParentId;
+                    content.CreatedDate = DateTime.Now;
+
+                    _context.Content.Add(content);
+                    await _context.SaveChangesAsync();
 
                     //return RedirectToAction("Index","Contents",new { websiteId = websiteId });
-                    return View();
+                    return RedirectToAction("Index","Contents",new { websiteId = websiteId });
                 }
             }
 
-            //ViewData["Lid"] = new SelectList(_context.Languages, "Id", "Name", content.Lid);
+            ViewBag.WidgetsList = new SelectList(_context.Widget.Where(w => !w.Title.Contains("Document")), "Id", "Title");
             return View(model);
         }
 
@@ -156,6 +169,9 @@ namespace CMS_SYSTEM.Controllers
                 return NotFound();
             }
             ViewData["Lid"] = new SelectList(_context.Languages, "Id", "Name", content.Lid);
+
+            ViewBag.WebId = _context.WidgetParent.SingleOrDefault(x=>x.Id==content.Pid).WebsitesId;
+
             return View(content);
         }
 
