@@ -36,8 +36,19 @@ namespace CMS_SYSTEM
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
+            services.AddDistributedMemoryCache();
+            services.AddSession(options =>
+            {
+                // Set a short timeout for easy testing.
+                options.IdleTimeout = TimeSpan.FromMinutes(10);
+                options.Cookie.HttpOnly = true;
+                // Make the session cookie essential
+                options.Cookie.IsEssential = true;
+            });
+
             services.AddDbContext<CMSPROJECT3Context>(options =>
                 options.UseSqlServer(
+                    
                     Configuration.GetConnectionString("DefaultConnection")));
 
             services.AddDbContext<ApplicationDbContext>(options =>
@@ -56,7 +67,7 @@ namespace CMS_SYSTEM
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env, IServiceProvider serviceProvider)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
             if (env.IsDevelopment())
             {
@@ -72,13 +83,21 @@ namespace CMS_SYSTEM
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
+            app.UseSession();
+
             app.UseCookiePolicy();
+
             app.UseAuthentication();
+
             app.UseMvc(routes =>
             {
+                //routes.MapRoute(
+                //    name: "default",
+                //    template: "{controller=Home}/{action=Index}/{id?}");
+
                 routes.MapRoute(
                     name: "default",
-                    template: "{controller=Home}/{action=Index}/{id?}");
+                    template: "{controller=Widget}/{action=Index}/{id?}");
             });
          //    app.UseIdentity();     
             
@@ -168,5 +187,6 @@ namespace CMS_SYSTEM
             await UserManager.AddToRoleAsync(user, "Admin");
         }
 
+        }
     }
 }
