@@ -92,8 +92,22 @@ namespace CMS_SYSTEM.Controllers
         public async Task<IActionResult> Create(Websites websites)
         {
             //([Bind("Id,CreatedBy,DomainUrl,WebsiteName")] Websites websites)
+
             if (ModelState.IsValid)
             {
+       //         var userData = _context.AspNetUsers.SingleOrDefault(x => x.UserName == User.Identity.Name);
+                var websitesData = _context.Websites.Where(x => x.CreatedBy == User.Identity.Name).ToList();
+                for(int i =0; i<websitesData.Count;i++)
+                {
+                    if (websitesData[i].WebsiteName == websites.WebsiteName)
+                    {
+                        if (websitesData[i].IsDeleted == false)
+                        {
+                            ModelState.AddModelError(string.Empty, "This website name already exists . Please choose another name .. ");
+                            return View();
+                        }
+                    }
+                }
                 _context.Add(websites);
                 _context.SaveChanges();
                 var websiteID = websites.Id;
