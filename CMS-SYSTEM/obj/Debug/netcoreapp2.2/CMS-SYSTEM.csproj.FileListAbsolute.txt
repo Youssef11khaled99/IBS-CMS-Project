@@ -74,7 +74,6 @@ D:\IBS\Core Project\CMS-SYSTEM\bin\Debug\netcoreapp2.2\CMS-SYSTEM.pdb
 D:\IBS\Core Project\CMS-SYSTEM\bin\Debug\netcoreapp2.2\CMS-SYSTEM.Views.dll
 D:\IBS\Core Project\CMS-SYSTEM\bin\Debug\netcoreapp2.2\CMS-SYSTEM.Views.pdb
 D:\IBS\Core Project\CMS-SYSTEM\bin\Debug\netcoreapp2.2\Microsoft.Office.Tools.Word.dll
-D:\IBS\Core Project\CMS-SYSTEM\obj\Debug\netcoreapp2.2\CMS-SYSTEM.csprojAssemblyReference.cache
 D:\IBS\Core Project\CMS-SYSTEM\obj\Debug\netcoreapp2.2\CMS-SYSTEM.csproj.CoreCompileInputs.cache
 D:\IBS\Core Project\CMS-SYSTEM\obj\Debug\netcoreapp2.2\CMS-SYSTEM.RazorAssemblyInfo.cache
 D:\IBS\Core Project\CMS-SYSTEM\obj\Debug\netcoreapp2.2\CMS-SYSTEM.RazorAssemblyInfo.cs
