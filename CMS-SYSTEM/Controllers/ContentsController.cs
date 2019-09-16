@@ -21,21 +21,14 @@ namespace CMS_SYSTEM.Controllers
             _context = context;
         }
 
-        //[Authorize]
-        public ActionResult LinkTo()
-        {
-
-            return View();
-        }
-
         // GET: Contents
         public IActionResult Index(int websiteId)
         {
 
-            HttpContext.Session.SetInt32("currentWebsiteId", websiteId);
+            //HttpContext.Session.SetInt32("currentWebsiteId", websiteId);
             //var testId = HttpContext.Session.GetInt32("currentWebsiteId");
-
-            return RedirectToAction("Create", "Contents", new { id = websiteId });
+            ViewBag.WebsiteID = websiteId;
+            return View();
         }
 
         // GET: Contents/Details/5
@@ -63,7 +56,7 @@ namespace CMS_SYSTEM.Controllers
             widgetContentViewModel model = new widgetContentViewModel();
             model.WebsiteId = id;
             ViewData["Lid"] = new SelectList(_context.Languages, "Id", "Name");
-            ViewBag.WidgetsList = new SelectList(_context.Widget, "Id", "Title");
+            ViewBag.WidgetsList = new SelectList(_context.Widget.Where(w => ! w.Title.Contains("Document")), "Id", "Title");
             return View(model);
         }
 
