@@ -15,7 +15,7 @@
 
             <div class="form-group">
                 <label asp-for="WebsiteId" class="control-label"></label>
-                <input asp-for="WebsiteId" class="form-control" />
+                <input readonly asp-for="WebsiteId" class="form-control" />
             </div>
 
             @*<div class="form-group">
@@ -41,6 +41,6 @@
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a href="/Contents/Index?WebsiteId=@Model.WebsiteId">Back to List</a>
 </div>
 

@@ -27,7 +27,33 @@ namespace CMS_SYSTEM.Controllers
 
             //HttpContext.Session.SetInt32("currentWebsiteId", websiteId);
             //var testId = HttpContext.Session.GetInt32("currentWebsiteId");
+
             ViewBag.WebsiteID = websiteId;
+            var websiteData = _context.Websites.SingleOrDefault(w => w.Id == websiteId);
+
+            var webParent = _context.Widget.SingleOrDefault(p => p.CreatedBy == websiteData.CreatedBy
+                            && p.Title.Contains(websiteData.WebsiteName + "-Document"));
+
+            if (webParent != null)
+            {
+                var contents = (from content in _context.Content
+                            join widgetParent in _context.WidgetParent
+                            on content.Pid equals widgetParent.Id
+                            where widgetParent.Pid == webParent.Id
+                            select content).ToList();
+
+
+                //var contentss = _context.Content.Where(c => c.Pid == webParent.Id).ToList();
+                if (contents.Count != 0)
+                {
+                    return View(contents);
+                }
+                else
+                {
+                    ViewBag.ContentsNotFound = "Sorry you dont have any Widgets ";
+                    return View();
+                }
+            }
             return View();
         }
 
@@ -56,7 +82,7 @@ namespace CMS_SYSTEM.Controllers
             widgetContentViewModel model = new widgetContentViewModel();
             model.WebsiteId = id;
             ViewData["Lid"] = new SelectList(_context.Languages, "Id", "Name");
-            ViewBag.WidgetsList = new SelectList(_context.Widget.Where(w => ! w.Title.Contains("Document")), "Id", "Title");
+            ViewBag.WidgetsList = new SelectList(_context.Widget.Where(w => !w.Title.Contains("Document")), "Id", "Title");
             return View(model);
         }
 
@@ -67,9 +93,8 @@ namespace CMS_SYSTEM.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(widgetContentViewModel model)
         {
-            var tessst = model.SelectedWidgetId;
             /*
-             * - Get ( WebsiteId - User - WidgetParent "document" )
+             * - Get ( WebsiteId - User - WidgetParent "document")
              * - Get Selected Widget ID From html add form 
              * - Add in (WidgetParent)
              * - Get WidgetParentID Current Add
@@ -77,16 +102,21 @@ namespace CMS_SYSTEM.Controllers
              */
 
             int websiteId = model.WebsiteId;
+            
             if (websiteId != 0)
             {
+                var websiteData = _context.Websites.SingleOrDefault(w => w.Id == websiteId);
+                var parentData = _context.Widget.SingleOrDefault(p => p.CreatedBy == websiteData.CreatedBy
+                                    && p.Title.Contains(websiteData.WebsiteName + "-Document"));
+
                 if (ModelState.IsValid)
                 {
                     var selectedWidgetID = model.SelectedWidgetId;
-
                     var widget = _context.Widget.SingleOrDefault(x => x.Id == selectedWidgetID);
+
                     WidgetParent widgetParent = new WidgetParent();
 
-                    widgetParent.Pid = 6;
+                    widgetParent.Pid = parentData.Id;
                     widgetParent.Wid = selectedWidgetID;
                     widgetParent.WebsitesId = websiteId;
 
