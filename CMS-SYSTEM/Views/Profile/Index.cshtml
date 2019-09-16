@@ -5,7 +5,9 @@
 
 <h1>Websites List</h1>
 <br />
-<br />
+<p>
+    <a asp-action="Create" class="createButton">Create New</a>
+</p>
 <hr />
 
 
@@ -76,8 +78,8 @@
             <th scope="col">Name</th>
             <th scope="col">Created By</th>
             <th scope="col">Domain URL</th>
-            <th scope="col">Is Deleted</th>
             <th scope="col">Options</th>
+            <th scope="col">Delete</th>
         </tr>
     </thead>
     <tbody class="MyTbody"></tbody>
@@ -91,13 +93,30 @@
     AllWebsites();
     function AllWebsites() {
         $.get('/Profile/GetWebsites', function (data) {
-            var s = "";
+            var s = "", checkbox = "";
             $.each(data, function (i, v) {
+                checkbox = "";
+                if (v.isDeleted == true) {
+                    checkbox += '<td>' +
+                        '<label class="switch" >' +
+                        '<input type="checkbox" class="api-btn" data-name="news" onclick="location.href = '~/Views/Profile / Delete"/>' +
+                    '<span class="slider round"></span>' +
+                        '</label >' +
+                        '</td >';
+                } else {
+                    checkbox +=
+                        '<td>' +
+                        '<label class="switch" >' +
+                        '<input type="checkbox" class="api-btn" data-name="news" checked/>' +
+                        '<span class="slider round"></span>' +
+                        '</label >' +
+                        '</td >';
+
+                }
                 s += '<tr id="' + v.id + '">' +
                     '<td>' + v.name + '</td>' +
                     '<td>' + v.createdBy + '</td>' +
                     '<td>' + v.domainUrl + '</td>' +
-                    '<td>' + v.isDeleted + '</td>' +
                     '<td>' +
                     //'<button type="button" id="' + v.id + '" class="btn btn-warning" data-toggle="modal" onclick="GetWidget(id)" data-target="#editModel">Edit</button>' +
                     //' | ' +
@@ -112,6 +131,8 @@
                     '<a href="/Profile/Open?id=' + v.id + '" class="btn btn-primary">Open</a>' +
                     ' | ' +
                     '<a href="/Profile/AddUser?id=' + v.id + '" class="btn btn-primary">Add User</a>' +
+                    ' | ' + checkbox +
+
 
                     '</td>' +
                     '</tr>';

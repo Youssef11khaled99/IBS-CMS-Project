@@ -14,6 +14,7 @@ using Microsoft.Extensions.DependencyInjection;
 namespace CMS_SYSTEM.Controllers
 {
     [Authorize]
+
     public class ProfileController : Controller
     {
         private readonly CMSPROJECT3Context _context;
@@ -32,7 +33,7 @@ namespace CMS_SYSTEM.Controllers
             */
 
             return View();
-            
+
 
         }
 
@@ -40,19 +41,19 @@ namespace CMS_SYSTEM.Controllers
         {
             var currentUserEmail = _context.AspNetUsers.SingleOrDefault(u => u.UserName == User.Identity.Name).Email;
             var WebsitesData = (from userWebsites in _context.UserWebsites
-                        join websites in _context.Websites
-                        on userWebsites.WebsiteId equals websites.Id
-                        where userWebsites.UserEmail == currentUserEmail
-                        where websites.IsDeleted == false
-                        select new
-                        {
-                            id = websites.Id,
-                            name = websites.WebsiteName == null ? "" : websites.WebsiteName,
-                            createdBy = websites.CreatedBy == null ? "" : websites.CreatedBy,
-                            domainUrl = websites.DomainUrl == null ? "" : websites.DomainUrl,
-                            isDeleted = websites.IsDeleted
+                                join websites in _context.Websites
+                                on userWebsites.WebsiteId equals websites.Id
+                                where userWebsites.UserEmail == currentUserEmail
+                                where websites.IsDeleted == false
+                                select new
+                                {
+                                    id = websites.Id,
+                                    name = websites.WebsiteName == null ? "" : websites.WebsiteName,
+                                    createdBy = websites.CreatedBy == null ? "" : websites.CreatedBy,
+                                    domainUrl = websites.DomainUrl == null ? "" : websites.DomainUrl,
+                                    isDeleted = websites.IsDeleted
 
-                        }).ToList();
+                                }).ToList();
 
             return Json(WebsitesData);
         }
@@ -94,6 +95,7 @@ namespace CMS_SYSTEM.Controllers
             if (ModelState.IsValid)
             {
                 _context.Add(websites);
+                _context.SaveChanges();
                 var websiteID = websites.Id;
                 Widget widget = new Widget();
                 widget.CreatedDate = DateTime.Now;
@@ -242,7 +244,8 @@ namespace CMS_SYSTEM.Controllers
             return View(websites);
         }
         [HttpGet]
-        public async Task<IActionResult> AddUser(int ?id) {
+        public async Task<IActionResult> AddUser(int? id)
+        {
             if (id == null)
             {
                 return NotFound();
@@ -255,24 +258,25 @@ namespace CMS_SYSTEM.Controllers
             }
             return View();
 
-             
+
         }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> AddUser(int id, [FromServices] IServiceProvider serviceProvider, addUserModel users)
         {
             var UserManager = serviceProvider.GetRequiredService<UserManager<IdentityUser>>();
-             //Assign Admin role to the main User here we have given our newly registered 
+            //Assign Admin role to the main User here we have given our newly registered 
             //login id for Admin management
             IdentityUser user = new IdentityUser();
-         
-                user = await UserManager.FindByEmailAsync(users.Email);
+
+            user = await UserManager.FindByEmailAsync(users.Email);
             if (user == null)
             {
                 ModelState.AddModelError(string.Empty, "Invalid user email.");
                 return View();
             }
-            
+
 
             UserWebsites userWebsites = new UserWebsites();
             userWebsites.UserEmail = users.Email;
@@ -284,4 +288,7 @@ namespace CMS_SYSTEM.Controllers
         }
 
     }
+
+
+
 }
