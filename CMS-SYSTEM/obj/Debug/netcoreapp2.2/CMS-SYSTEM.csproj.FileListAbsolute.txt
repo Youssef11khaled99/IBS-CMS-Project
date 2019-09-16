@@ -111,7 +111,6 @@ D:\IBS\Core Project\CMS-SYSTEM\obj\Debug\netcoreapp2.2\Razor\Areas\Identity\Page
 D:\IBS\Core Project\CMS-SYSTEM\obj\Debug\netcoreapp2.2\Razor\Areas\Identity\Pages\Account\Register.g.cshtml.cs
 D:\IBS\Core Project\CMS-SYSTEM\obj\Debug\netcoreapp2.2\Razor\Areas\Identity\Pages\Account\ResetPassword.g.cshtml.cs
 D:\IBS\Core Project\CMS-SYSTEM\obj\Debug\netcoreapp2.2\Razor\Areas\Identity\Pages\Account\ResetPasswordConfirmation.g.cshtml.cs
-D:\IBS\Core Project\CMS-SYSTEM\obj\Debug\netcoreapp2.2\Razor\Areas\Identity\Pages\Account\_ViewImports.g.cshtml.cs
 D:\IBS\Core Project\CMS-SYSTEM\obj\Debug\netcoreapp2.2\Razor\Areas\Identity\Pages\Error.g.cshtml.cs
 D:\IBS\Core Project\CMS-SYSTEM\obj\Debug\netcoreapp2.2\Razor\Areas\Identity\Pages\_ValidationScriptsPartial.g.cshtml.cs
 D:\IBS\Core Project\CMS-SYSTEM\obj\Debug\netcoreapp2.2\Razor\Areas\Identity\Pages\_ViewImports.g.cshtml.cs
@@ -237,3 +236,5 @@ E:\IBSValley-Internship\C#\IBS-CMS-Project\CMS-SYSTEM\obj\Debug\netcoreapp2.2\CM
 E:\IBSValley-Internship\C#\IBS-CMS-Project\CMS-SYSTEM\obj\Debug\netcoreapp2.2\CMS-SYSTEM.RazorTargetAssemblyInfo.cs
 E:\IBSValley-Internship\C#\IBS-CMS-Project\CMS-SYSTEM\obj\Debug\netcoreapp2.2\CMS-SYSTEM.Views.pdb
 E:\IBSValley-Internship\C#\IBS-CMS-Project\CMS-SYSTEM\obj\Debug\netcoreapp2.2\CMS-SYSTEM.csproj.CopyComplete
+D:\IBS\Core Project\CMS-SYSTEM\obj\Debug\netcoreapp2.2\CMS-SYSTEM.csprojAssemblyReference.cache
+D:\IBS\Core Project\CMS-SYSTEM\obj\Debug\netcoreapp2.2\Razor\Views\Profile\AddUser.g.cshtml.cs
