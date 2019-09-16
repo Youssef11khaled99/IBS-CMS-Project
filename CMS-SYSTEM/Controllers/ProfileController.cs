@@ -3,15 +3,17 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using CMS_SYSTEM.Models;
+using CMS_SYSTEM.viewModel;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace CMS_SYSTEM.Controllers
 {
     [Authorize]
-
     public class ProfileController : Controller
     {
         private readonly CMSPROJECT3Context _context;
@@ -239,8 +241,47 @@ namespace CMS_SYSTEM.Controllers
 
             return View(websites);
         }
+        [HttpGet]
+        public async Task<IActionResult> AddUser(int ?id) {
+            if (id == null)
+            {
+                return NotFound();
+            }
 
+            var websites = await _context.Websites.FindAsync(id);
+            if (websites == null)
+            {
+                return NotFound();
+            }
+            return View();
 
+             
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> AddUser(int id, [FromServices] IServiceProvider serviceProvider, addUserModel users)
+        {
+            var UserManager = serviceProvider.GetRequiredService<UserManager<IdentityUser>>();
+             //Assign Admin role to the main User here we have given our newly registered 
+            //login id for Admin management
+            IdentityUser user = new IdentityUser();
+         
+                user = await UserManager.FindByEmailAsync(users.Email);
+            if (user == null)
+            {
+                ModelState.AddModelError(string.Empty, "Invalid user email.");
+                return View();
+            }
+            
+
+            UserWebsites userWebsites = new UserWebsites();
+            userWebsites.UserEmail = users.Email;
+            userWebsites.WebsiteId = id;
+            _context.Add(userWebsites);
+            await UserManager.AddToRoleAsync(user, users.RoleName);
+            await _context.SaveChangesAsync();
+            return View();
+        }
 
     }
 }

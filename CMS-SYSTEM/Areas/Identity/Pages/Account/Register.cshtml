@@ -17,22 +17,6 @@
                 <input asp-for="Input.Email" class="form-control" />
                 <span asp-validation-for="Input.Email" class="text-danger"></span>
             </div>
-
-            <div class="form-group">
-                <label asp-for="Input.PhoneNumber"></label>
-                <select name="CountryCode" id="" class="form-control"  asp-for="Input.CountryCode">
-                    <option data-countryCode="EG" asp-for="Input.CountryCode" value="20" selected>Egypt (+20)</option>
-                    <optgroup label="Other countries">
-                        <option data-countryCode="SD" value="249">Sudan (+249)</option>
-                        <option data-countryCode="SI" value="963">Syria (+963)</option>
-                        <option data-countryCode="AE" value="971">United Arab Emirates (+971)</option>
-                    </optgroup>
-                </select>
-                <div> <br /> </div>
-                <input asp-for="Input.PhoneNumber" class="form-control"/>
-                <span asp-validation-for="Input.PhoneNumber" class="text-danger"></span>
-            </div>
-
             <div class="form-group">
                 <label asp-for="Input.Password"></label>
                 <input asp-for="Input.Password" class="form-control" />
