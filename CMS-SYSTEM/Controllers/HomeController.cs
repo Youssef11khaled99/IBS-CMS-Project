@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace CMS_SYSTEM.Controllers
 {
-    [Authorize]
+ 
     public class HomeController : Controller
     {
         public IActionResult Index()

@@ -3,10 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using CMS_SYSTEM.Models;
+using CMS_SYSTEM.viewModel;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace CMS_SYSTEM.Controllers
 {
@@ -30,7 +33,7 @@ namespace CMS_SYSTEM.Controllers
             */
 
             return View();
-            
+
 
         }
 
@@ -38,19 +41,19 @@ namespace CMS_SYSTEM.Controllers
         {
             var currentUserEmail = _context.AspNetUsers.SingleOrDefault(u => u.UserName == User.Identity.Name).Email;
             var WebsitesData = (from userWebsites in _context.UserWebsites
-                        join websites in _context.Websites
-                        on userWebsites.WebsiteId equals websites.Id
-                        where userWebsites.UserEmail == currentUserEmail
-                        where websites.IsDeleted == false
-                        select new
-                        {
-                            id = websites.Id,
-                            name = websites.WebsiteName == null ? "" : websites.WebsiteName,
-                            createdBy = websites.CreatedBy == null ? "" : websites.CreatedBy,
-                            domainUrl = websites.DomainUrl == null ? "" : websites.DomainUrl,
-                            isDeleted = websites.IsDeleted
+                                join websites in _context.Websites
+                                on userWebsites.WebsiteId equals websites.Id
+                                where userWebsites.UserEmail == currentUserEmail
+                                //where websites.IsDeleted == false
+                                select new
+                                {
+                                    id = websites.Id,
+                                    name = websites.WebsiteName == null ? "" : websites.WebsiteName,
+                                    createdBy = websites.CreatedBy == null ? "" : websites.CreatedBy,
+                                    domainUrl = websites.DomainUrl == null ? "" : websites.DomainUrl,
+                                    isDeleted = websites.IsDeleted
 
-                        }).ToList();
+                                }).ToList();
 
             return Json(WebsitesData);
         }
@@ -92,6 +95,7 @@ namespace CMS_SYSTEM.Controllers
             if (ModelState.IsValid)
             {
                 _context.Add(websites);
+                _context.SaveChanges();
                 var websiteID = websites.Id;
                 Widget widget = new Widget();
                 widget.CreatedDate = DateTime.Now;
@@ -218,7 +222,7 @@ namespace CMS_SYSTEM.Controllers
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var websites = await _context.Websites.FindAsync(id);
-            websites.IsDeleted = true;
+            websites.IsDeleted = !websites.IsDeleted;
             _context.Update(websites);
             //_context.UserWebsites.Remove(userWebsites);
             await _context.SaveChangesAsync();
@@ -239,8 +243,52 @@ namespace CMS_SYSTEM.Controllers
 
             return View(websites);
         }
+        [HttpGet]
+        public async Task<IActionResult> AddUser(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var websites = await _context.Websites.FindAsync(id);
+            if (websites == null)
+            {
+                return NotFound();
+            }
+            return View();
 
 
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> AddUser(int id, [FromServices] IServiceProvider serviceProvider, addUserModel users)
+        {
+            var UserManager = serviceProvider.GetRequiredService<UserManager<IdentityUser>>();
+            //Assign Admin role to the main User here we have given our newly registered 
+            //login id for Admin management
+            IdentityUser user = new IdentityUser();
+
+            user = await UserManager.FindByEmailAsync(users.Email);
+            if (user == null)
+            {
+                ModelState.AddModelError(string.Empty, "Invalid user email.");
+                return View();
+            }
+
+
+            UserWebsites userWebsites = new UserWebsites();
+            userWebsites.UserEmail = users.Email;
+            userWebsites.WebsiteId = id;
+            _context.Add(userWebsites);
+            await UserManager.AddToRoleAsync(user, users.RoleName);
+            await _context.SaveChangesAsync();
+            return View();
+        }
 
     }
+
+
+
 }
