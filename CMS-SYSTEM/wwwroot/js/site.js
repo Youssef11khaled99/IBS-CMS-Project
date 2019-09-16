@@ -3,6 +3,5 @@
 
 // Write your JavaScript code.
 function redirect(id) {
-    var url = "./View/Profile/Delete/" + id;
-    window.location(url);
+    window.location = "https://localhost:44329/Profile/Delete/" + id;
 }

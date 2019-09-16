@@ -44,7 +44,7 @@ namespace CMS_SYSTEM.Controllers
                                 join websites in _context.Websites
                                 on userWebsites.WebsiteId equals websites.Id
                                 where userWebsites.UserEmail == currentUserEmail
-                                where websites.IsDeleted == false
+                                //where websites.IsDeleted == false
                                 select new
                                 {
                                     id = websites.Id,
@@ -222,7 +222,7 @@ namespace CMS_SYSTEM.Controllers
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var websites = await _context.Websites.FindAsync(id);
-            websites.IsDeleted = true;
+            websites.IsDeleted = !websites.IsDeleted;
             _context.Update(websites);
             //_context.UserWebsites.Remove(userWebsites);
             await _context.SaveChangesAsync();

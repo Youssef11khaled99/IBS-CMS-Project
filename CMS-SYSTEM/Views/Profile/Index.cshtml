@@ -96,19 +96,22 @@
             var s = "", checkbox = "";
             $.each(data, function (i, v) {
                 checkbox = "";
+                console.log("state: " + v.isDeleted);
                 if (v.isDeleted == true) {
+                    console.log("Tmm");
                     checkbox += '<td>' +
                         '<label class="switch" >' +
-                        '<input type="checkbox" class="api-btn" data-name="news" onclick="location.href = '~/Views/Profile / Delete"/>' +
-                    '<span class="slider round"></span>' +
+                            '<input type="checkbox" class="api-btn" onclick="redirect(' + v.id +');"/>' +
+                            '<span class="slider round"></span>' +
                         '</label >' +
                         '</td >';
                 } else {
+                    console.log("M$ Tmm");
                     checkbox +=
                         '<td>' +
                         '<label class="switch" >' +
-                        '<input type="checkbox" class="api-btn" data-name="news" checked/>' +
-                        '<span class="slider round"></span>' +
+                            '<input type="checkbox" class="api-btn" onclick="redirect(' + v.id + ');" checked/>'+
+                            '<span class="slider round"></span>' +
                         '</label >' +
                         '</td >';
 
