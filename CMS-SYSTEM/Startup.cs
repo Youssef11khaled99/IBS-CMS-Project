@@ -43,11 +43,16 @@ namespace CMS_SYSTEM
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
+
             services.AddDefaultIdentity<IdentityUser>()
+                .AddRoles<IdentityRole>()
                 .AddDefaultUI(UIFramework.Bootstrap4)
                 .AddEntityFrameworkStores<ApplicationDbContext>();
 
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+            
+             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+
+      
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -75,19 +80,22 @@ namespace CMS_SYSTEM
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
             });
-      
-           // app.UseIdentity();         
-            //CreateRoles(serviceProvider).GetAwaiter().GetResult();
+         //    app.UseIdentity();     
+            
+     
+            CreateUserRoles(serviceProvider).Wait();
         }
+
+   
 
         //private async Task CreateRoles(IServiceProvider serviceProvider)
         //{
         //    //adding custom roles
         //    var RoleManager = serviceProvider.GetRequiredService<RoleManager<IdentityRole>>();
-        //    var UserManager = serviceProvider.GetRequiredService<UserManager<ApplicationUser>>();
+        //    var UserManager = serviceProvider.GetRequiredService<UserManager<`>>();
         //    string[] roleNames = { "Admin",  "Member" , "ContentManager"};
         //    IdentityResult roleResult;
-            
+
         //    foreach (var roleName in roleNames)
         //    {
         //        //creating the roles and seeding them to the database
@@ -116,6 +124,49 @@ namespace CMS_SYSTEM
         //    }
 
         //}
+        private async Task CreateUserRoles(IServiceProvider serviceProvider)
+        {
+            var RoleManager = serviceProvider.GetRequiredService<RoleManager<IdentityRole>>();
+            var UserManager = serviceProvider.GetRequiredService<UserManager<IdentityUser>>();
+            IdentityResult roleResult;
+            //Adding Admin Role
+            var roleCheck = true;
+            roleCheck= await RoleManager.RoleExistsAsync("Admin");
+            if (!roleCheck)
+            {
+                //create the roles and seed them to the database
+                roleResult = await RoleManager.CreateAsync(new IdentityRole("Admin"));
+                roleCheck = true;
+            }
+             roleCheck = await RoleManager.RoleExistsAsync("Content Manager");
+            if (!roleCheck)
+            {
+                //create the roles and seed them to the database
+                roleResult = await RoleManager.CreateAsync(new IdentityRole("Content Manager"));
+                roleCheck = true;
+            }
+            roleCheck = await RoleManager.RoleExistsAsync("Moderator");
+            if (!roleCheck)
+            {
+                //create the roles and seed them to the database
+                roleResult = await RoleManager.CreateAsync(new IdentityRole("Moderator"));
+                roleCheck = true;
+            }
+
+            //Assign Admin role to the main User here we have given our newly registered 
+            //login id for Admin management
+            IdentityUser user = new IdentityUser() ;
+            try
+            {
+                 user = await UserManager.FindByEmailAsync("donia@gmail.com");
+            }
+            catch (Exception ex)
+            {
+                ex.Message.ToString();
+            }
+            var User = new IdentityUser();
+            await UserManager.AddToRoleAsync(user, "Admin");
+        }
 
     }
 }
