@@ -4,6 +4,7 @@
 }
 @{
     var value = (Model.IsDeleted == true) ? "Acvtivate" : "Deacvtivate"; 
+    var styleValue = (Model.IsDeleted == true) ? "success" : "danger"; 
 }
 
 <h1>@value</h1>
@@ -37,7 +38,7 @@
     <form asp-action="Delete">
         <input type="hidden" asp-for="Id" />
 
-        <input type="submit" value="@value" class="btn btn-danger" /> |
+        <input type="submit" value="@value" class="btn btn-@styleValue" /> |
 
         <a asp-action="Index">Back to List</a>
     </form>
