@@ -332,7 +332,6 @@ D:\IBS\Project2\CMS-SYSTEM\bin\Debug\netcoreapp2.2\CMS-SYSTEM.pdb
 D:\IBS\Project2\CMS-SYSTEM\bin\Debug\netcoreapp2.2\CMS-SYSTEM.Views.dll
 D:\IBS\Project2\CMS-SYSTEM\bin\Debug\netcoreapp2.2\CMS-SYSTEM.Views.pdb
 D:\IBS\Project2\CMS-SYSTEM\bin\Debug\netcoreapp2.2\Microsoft.Office.Tools.Word.dll
-D:\IBS\Project2\CMS-SYSTEM\obj\Debug\netcoreapp2.2\CMS-SYSTEM.csprojAssemblyReference.cache
 D:\IBS\Project2\CMS-SYSTEM\obj\Debug\netcoreapp2.2\CMS-SYSTEM.csproj.CoreCompileInputs.cache
 D:\IBS\Project2\CMS-SYSTEM\obj\Debug\netcoreapp2.2\CMS-SYSTEM.RazorAssemblyInfo.cache
 D:\IBS\Project2\CMS-SYSTEM\obj\Debug\netcoreapp2.2\CMS-SYSTEM.RazorAssemblyInfo.cs
@@ -410,3 +409,5 @@ D:\IBS\Project2\CMS-SYSTEM\obj\Debug\netcoreapp2.2\CMS-SYSTEM.Views.pdb
 D:\IBS\Project2\CMS-SYSTEM\obj\Debug\netcoreapp2.2\CMS-SYSTEM.csproj.CopyComplete
 D:\IBS\Project2\CMS-SYSTEM\obj\Debug\netcoreapp2.2\CMS-SYSTEM.dll
 D:\IBS\Project2\CMS-SYSTEM\obj\Debug\netcoreapp2.2\CMS-SYSTEM.pdb
+D:\IBS\Project2\CMS-SYSTEM\obj\Debug\netcoreapp2.2\Razor\Views\Contents\Test.g.cshtml.cs
+D:\IBS\Project2\CMS-SYSTEM\obj\Debug\netcoreapp2.2\CMS-SYSTEM.csprojAssemblyReference.cache

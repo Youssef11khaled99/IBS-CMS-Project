@@ -23,7 +23,7 @@
                 <input asp-for="Title" class="form-control" />
                 <span asp-validation-for="Title" class="text-danger"></span>
             </div>
-            <div class="form-group">
+            @*<div class="form-group">
                 <label asp-for="Lid" class="control-label"></label>
                 <select asp-for="Lid" class="form-control" asp-items="ViewBag.Lid"></select>
                 <span asp-validation-for="Lid" class="text-danger"></span>
@@ -32,13 +32,13 @@
                 <label asp-for="MetaDescription" class="control-label"></label>
                 <input asp-for="MetaDescription" class="form-control" />
                 <span asp-validation-for="MetaDescription" class="text-danger"></span>
-            </div>
+            </div>*@
             @*<div class="form-group">
             <label asp-for="Body" class="control-label"></label>
             <input asp-for="Body" class="form-control" />
             <span asp-validation-for="Body" class="text-danger"></span>
         </div>*@
-            <div class="form-group">
+            @*<div class="form-group">
                 <label asp-for="IsValid" class="control-label"></label>
                 <input asp-for="IsValid" class="form-control" />
                 <span asp-validation-for="IsValid" class="text-danger"></span>
@@ -72,9 +72,11 @@
                 <label asp-for="Pid" class="control-label"></label>
                 <input asp-for="Pid" class="form-control" />
                 <span asp-validation-for="Pid" class="text-danger"></span>
-            </div>
+            </div>*@
 
-            
+        
+            Html For Content
+            <hr />
             <div class="alert alert-warning" role="alert">
                 @Html.Raw(Model.Body)
             </div>
