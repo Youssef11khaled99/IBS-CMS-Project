@@ -97,7 +97,7 @@ namespace CMS_SYSTEM
 
                 routes.MapRoute(
                     name: "default",
-                    template: "{controller=Home}/{action=Index}/{id?}");
+                    template: "{controller=Profile}/{action=userHome}/{id?}");
             });
          //    app.UseIdentity();     
             

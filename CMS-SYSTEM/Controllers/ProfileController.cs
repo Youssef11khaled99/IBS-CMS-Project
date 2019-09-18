@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using CMS_SYSTEM.Areas.Identity.Pages.Account;
 using CMS_SYSTEM.Models;
 using CMS_SYSTEM.viewModel;
 using Microsoft.AspNetCore.Authorization;
@@ -10,6 +11,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 
 namespace CMS_SYSTEM.Controllers
 {
@@ -18,10 +20,12 @@ namespace CMS_SYSTEM.Controllers
     public class ProfileController : Controller
     {
         private readonly CMSPROJECT3Context _context;
-        public ProfileController(CMSPROJECT3Context context)
+        public ProfileController(CMSPROJECT3Context context, SignInManager<IdentityUser> signInManager)
         {
             _context = context;
+            _signInManager = signInManager;
         }
+ 
         // GET: UserProfile
         [HttpGet]
         public IActionResult Index()
@@ -36,6 +40,53 @@ namespace CMS_SYSTEM.Controllers
 
 
         }
+        // GET: UserProfile
+        [HttpGet]
+        public IActionResult userHome()
+        {
+            //var data = await _context.Websites.Where(x => x.CreatedBy == currentUser).ToListAsync();
+            /* Select List Of Websites From many to many Table (UserWebsites)
+             * where the user email 
+            */
+            return View();
+        }
+        [HttpGet]
+        public IActionResult addPage()
+        {
+            //var data = await _context.Websites.Where(x => x.CreatedBy == currentUser).ToListAsync();
+            /* Select List Of Websites From many to many Table (UserWebsites)
+             * where the user email 
+            */
+            return View();
+        }
+        private readonly SignInManager<IdentityUser> _signInManager;
+
+        [HttpGet]
+        public async Task<IActionResult> PostLogout(string returnUrl = null)
+        {
+            await _signInManager.SignOutAsync();
+             if (returnUrl != null)
+            
+                return LocalRedirect(returnUrl);
+   
+            else
+            
+                return RedirectToAction("userHome", "Profile");
+
+        }
+        //[HttpPost]
+        //public async Task<IActionResult> PostLogout(string returnUrl = null)
+        //{
+        //    await _signInManager.SignOutAsync();
+        //     if (returnUrl != null)
+        //    {
+        //        return LocalRedirect(returnUrl);
+        //    }
+        //    else
+        //    {
+        //        return RedirectToAction("userHome", "Profile");
+        //    }
+        //}
 
         public JsonResult GetWebsites()
         {
@@ -158,8 +209,6 @@ namespace CMS_SYSTEM.Controllers
             }
             return View(websites);
         }
-
-
         // GET: UserProfile/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
