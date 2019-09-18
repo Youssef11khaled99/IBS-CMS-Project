@@ -2,15 +2,12 @@
 @{
     ViewData["Title"] = "Delete";
 }
-@{
-    var value = (Model.IsDeleted == true) ? "Acvtivate" : "Deacvtivate"; 
-    var styleValue = (Model.IsDeleted == true) ? "success" : "danger"; 
-}
-
-<h1>@value</h1>
 
 
-<h3>Are you sure you want to deactivate this website?</h3>
+<h1>Delete</h1>
+
+
+<h3>Are you sure you want to Delete this website?</h3>
 <div>
     <h4>Websites</h4>
     <hr />
@@ -38,7 +35,7 @@
     <form asp-action="Delete">
         <input type="hidden" asp-for="Id" />
 
-        <input type="submit" value="@value" class="btn btn-@styleValue" /> |
+        <input type="submit" value="Delete" class="btn btn-danger" /> |
 
         <a asp-action="Index">Back to List</a>
     </form>
