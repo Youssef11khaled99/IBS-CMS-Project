@@ -1,17 +1,80 @@
 ﻿@model CMS_SYSTEM.Models.ViewModels.widgetContentViewModel
 
 @{
-    ViewData["Title"] = "Create New Widget";
+    ViewData["Title"] = "Create New Content";
 }
 
-<label class="control-label">
-    Select Widget
-</label>
-<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
-    Widgets List
-</button>
+    <input type="text" id="websiteID" name="name" value="@ViewBag.WebId" />
 
-<button id="btnADDD">Add</button>
+<div class="container">
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group">
+                <label for="email">Name</label>
+                <input type="text" class="form-control" id="contentName">
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group">
+                <label for="pwd">Title:</label>
+                <input type="text" class="form-control" id="contentTitle">
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group">
+                <label for="pwd">Description:</label>
+                <input type="text" class="form-control" id="contentDescription">
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group">
+                <label class="control-label">
+                    Select Widget
+                </label>
+                <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#myModal">
+                    Widgets List
+                </button>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group">
+                <button class="btn btn-primary" id="btnCreate">Create</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+
+    </div>
+
+    <div>
+        <a class="btn btn-success" href="/Contents/Index?WebsiteId=@ViewBag.WebId">Back to List</a>
+    </div>
+
+</div>
+
+
+
+@*<div>
+    <a class="btn btn-success" href="/Contents/Index?WebsiteId=@ViewBag.WebId">Back to List</a>
+</div>*@
+
+
+
+
 
 
 <!-- Modal -->
@@ -19,7 +82,7 @@
     <div class="modal-dialog modal-xl" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                <h3 class="modal-title" id="exampleModalLabel">Widget List</h3>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -37,9 +100,7 @@
     </div>
 </div>
 
-<div>
-    <a href="/Contents/Index?WebsiteId=@ViewBag.WebId">Back to List</a>
-</div>
+
 
 <style>
     .widget {
@@ -64,6 +125,8 @@
     }
 </style>
 
+
+
 @section Scripts{
 
     <script>
@@ -73,29 +136,37 @@
             $.each(d, function (i, v) {
                 check.append(
                     $("<div class='row'><div class='col-md-6 widget'>" +
-                        " <input id =" + v.id + " type='checkbox' class='checkWidget' data-id=" + v.id + " value='" + v.id + "'/>" +
+                        "<input id =" + v.id + " type='checkbox' class='checkWidget' data-id=" + v.id + " value='" + v.id + "'/>" +
                         "<label>" + v.title + "</label><br/><br/><div class='alert alert-dark'>" + v.htmlBody +
-                        "</div></div></div> "));
+                        "</div></div></div>"));
 
             });
         }, "json")
 
-        $('#btnADDD').click(function () {
+        $('#btnCreate').click(function () {
             var objWidgets = [];
             $('input.checkWidget:checkbox:checked').each(function () {
                 objWidgets.push($(this).val());
 
-                alert(objWidgets);
+                //alert(objWidgets);
             });
 
+            var webId = $("#websiteID").val();
+            var Name = $("#contentName").val();
+            var contentTitle = $("#contentTitle").val();
+            var contentDescription = $("#contentDescription").val();
 
             var obj = {
-                'widgetList': objWidgets
+                'widgetList': objWidgets,
+                'WebsiteId': webId,
+                'Title': contentTitle,
+                'Name': Name,
+                'MetaDesc': contentDescription
 
             };
-            alert("obj: " + obj.widgetList);
+            //alert("obj: " + obj.widgetList);
             var dataPost = JSON.stringify(obj);
-            alert("DataPost: " + dataPost);
+           // alert("DataPost: " + dataPost);
 
             $.ajax({
                 type: 'Post',
@@ -108,16 +179,18 @@
                         $(this).val('');
                     });
 
+                    $('input').val('');
+
                 },
                 error: function () {
                     $('input.checkWidget:checkbox:checked').each(function () {
                         $(this).val('');
                     });
+                    $('input').val('');
+
                 }
             });
         })
-
-
 
     </script>
 

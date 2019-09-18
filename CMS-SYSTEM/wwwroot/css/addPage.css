@@ -1,0 +1,41 @@
+.pageBody {
+    position: relative;
+    width: 90%;
+    height: 90%;
+    padding: 0.75rem 1.25rem;
+    margin-bottom: 1rem;
+    margin-left: 4em;
+    margin-right: 2em;
+    border: 1px solid transparent;
+    border-radius: 0.25rem;
+    color: aliceblue;
+    background-color: rgb(10, 41, 61);
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+}
+
+/* Button Style */
+.button {
+    display: inline-block;
+    padding: 10px 20px;
+    font-size: 20px;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    outline: none;
+    color: #fff;
+    background-color: #3085a1;
+    border: none;
+    border-radius: 10px;
+    box-shadow: 0 5px #55808f;
+  }
+  
+  .button:hover {background-color: #008cba}
+  
+  .button:active {
+    background-color: #008cba;
+    box-shadow: 0 5px #008cba;
+    transform: translateY(4px);
+  }
+  /* End Of Button Style */

@@ -1,0 +1,63 @@
+﻿
+@{
+    ViewData["Title"] = "Index";
+}
+
+<div id="prev">
+    <h1>123456</h1>
+
+    <input type="text" name="name" value="test" />
+    <input type="text" name="name" value="test" />
+    <input type="text" name="name" value="test" />
+    <input type="text" name="name" value="test" />
+</div>
+
+<button class="btn btn-primary" id="btnPreview">Preview</button>
+
+@section Scripts{
+
+    <script>
+
+        $("#btnPreview").click(function () {
+
+            var htmlContent = $("#prev").html();
+
+            alert(htmlContent);
+
+
+            var obj = {
+                'HtmlBody': htmlContent
+            };
+
+            alert(obj);
+
+            var PostData = JSON.stringify(obj);
+            $.ajax({
+                type: 'Get',
+                dataType: 'json',
+                data: PostData,
+                contentType: 'application/json',
+                url: "/Preview/Previews/" + htmlContent,
+                //success: function (data) {
+                //    if (data == true) {
+                //       // window.location.href = "/Preview/Prev/" + PostData;
+                //    }
+                //    else {
+                //        alert("Error !");
+                //    }
+                //},
+                //error: function () {
+                //    alert("Error !");
+
+                //}
+
+            })
+
+        });
+
+    </script>
+
+
+
+}
+

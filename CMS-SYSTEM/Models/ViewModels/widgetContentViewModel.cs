@@ -21,7 +21,9 @@ namespace CMS_SYSTEM.Models.ViewModels
 
         [Required]
         public string Name { get; set; }
+
         [Required]
+        [Display(Name = "Description")]
         public string MetaDesc { get; set; }
 
         public int[] widgetList { get; set; }

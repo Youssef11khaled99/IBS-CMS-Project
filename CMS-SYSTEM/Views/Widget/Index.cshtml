@@ -23,7 +23,7 @@
 <div class="container mt-3">
     <!-- The Modal -->
     <div class="modal fade" id="addModal">
-        <div class="modal-dialog">
+        <div class="modal-dialog modal-xl">
             <div class="modal-content">
 
                 <!-- Modal Header -->
@@ -34,17 +34,19 @@
 
                 <!-- Modal body -->
                 <div class="modal-body">
-
-                    <div class="form-group">
-                        <label class="control-label col-sm-2" for="wTitle">Title:</label>
-                        <div class="col-sm-5">
-                            <input type="text" class="form-control" id="title" placeholder="Title" name="title">
-                        </div>
-                    </div>
-
                     <div class="container">
                         <div class="row">
-                            <div class="col-md-10">
+                            <div class="form-group">
+                                <label class="control-label col-sm-2" for="wTitle">Title:</label>
+                                <div class="col-sm-5">
+                                    <input type="text" class="form-control" id="title" placeholder="Title" name="title">
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="row">
+                            <div class="col-md-6">
                                 <label class="control-label col-sm-2" for="wHtmlBody">HTML:</label>
 
                                 <textarea class="editor" name="wHtmlBodyAdd" id="wHtmlBodyAdd"></textarea>
@@ -296,13 +298,13 @@
 
 
 
-    //CKEDITOR.replace("wHtmlBodyAdd");
-    //CKEDITOR.editorConfig = function (config) {
-    //    // Define changes to default configuration here. For example:
-    //    // config.language = 'fr';
-    //    // config.uiColor = '#AADC6E';
-    //    config.toolbar = 'Basic';
-    //};
+    CKEDITOR.replace("wHtmlBodyAdd");
+    CKEDITOR.editorConfig = function (config) {
+        // Define changes to default configuration here. For example:
+        // config.language = 'fr';
+        // config.uiColor = '#AADC6E';
+        config.toolbar = 'Basic';
+    };
 
     //CKEDITOR.replace("wHtmlBodyEdit");
     //CKEDITOR.editorConfig = function (config) {
