@@ -1,0 +1,89 @@
+#deleteIcon{
+  float: right;
+}
+
+#content{
+  background-color:#ded9d9;
+  height: 300px;
+  border-radius: 0px 0px 5px 5px;
+}
+
+#container{
+  width: 500px;
+  height: 350px;
+  margin: auto;
+  margin-top: 30px;
+}
+
+#header{
+  background-color: grey;
+  border-radius: 5px 5px 0px 0px;
+  height: 50px;
+}
+
+#hideAndShow, #deleteIcon{
+  width: 50px;
+  height: 50px;
+}
+
+#hideAndShow{
+  border-radius: 5px 0px 0px 0px;
+}
+
+
+#deleteIcon{
+  border-radius: 0px 5px 0px 0px;
+}
+
+#hideAndShow:hover, #deleteIcon:hover{
+  box-shadow: none;
+  background-color:#ded9d9;
+}
+
+#AddWidget{
+  margin: 30px;
+  margin-top: 30px;
+  border-radius: 5px;
+  box-shadow: none;
+}
+
+#AddWidget:hover{
+  background-color: grey;
+}
+
+#AddContentHere{
+  margin: auto;
+  width: 450px;
+  height: 200px;
+  padding-top: 20px;
+  background-color: #757171;
+}
+
+.btn-group button {
+  background-color: grey; 
+  border: 1px solid grey; 
+  color: white; 
+  padding: 10px 24px; 
+  cursor: pointer; 
+  width: 167px;
+  float: left;
+}
+
+.btn-group:after {
+  content: "";
+  clear: both;
+  display: table;
+}
+
+.btn-group button:not(:last-child) {
+  border-right: none; 
+}
+
+.btn-group button:hover {
+  background-color: black;
+}
+
+.btn-group{
+  margin-top: 30px;
+  margin-left: 224px;
+}

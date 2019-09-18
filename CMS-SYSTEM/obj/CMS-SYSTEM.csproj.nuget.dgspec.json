@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "D:\\IBS\\Project2\\CMS-SYSTEM\\CMS-SYSTEM.csproj": {}
+    "C:\\Users\\Donia\\Documents\\GitHub\\IBS-CMS-Project\\CMS-SYSTEM\\CMS-SYSTEM.csproj": {}
   },
   "projects": {
-    "D:\\IBS\\Project2\\CMS-SYSTEM\\CMS-SYSTEM.csproj": {
+    "C:\\Users\\Donia\\Documents\\GitHub\\IBS-CMS-Project\\CMS-SYSTEM\\CMS-SYSTEM.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\IBS\\Project2\\CMS-SYSTEM\\CMS-SYSTEM.csproj",
+        "projectUniqueName": "C:\\Users\\Donia\\Documents\\GitHub\\IBS-CMS-Project\\CMS-SYSTEM\\CMS-SYSTEM.csproj",
         "projectName": "CMS-SYSTEM",
-        "projectPath": "D:\\IBS\\Project2\\CMS-SYSTEM\\CMS-SYSTEM.csproj",
-        "packagesPath": "C:\\Users\\Maj ED\\.nuget\\packages\\",
-        "outputPath": "D:\\IBS\\Project2\\CMS-SYSTEM\\obj\\",
+        "projectPath": "C:\\Users\\Donia\\Documents\\GitHub\\IBS-CMS-Project\\CMS-SYSTEM\\CMS-SYSTEM.csproj",
+        "packagesPath": "C:\\Users\\Donia\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Donia\\Documents\\GitHub\\IBS-CMS-Project\\CMS-SYSTEM\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
         ],
         "configFilePaths": [
-          "C:\\Users\\Maj ED\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Donia\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [

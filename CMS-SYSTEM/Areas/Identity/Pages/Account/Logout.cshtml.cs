@@ -11,7 +11,7 @@ using Microsoft.Extensions.Logging;
 namespace CMS_SYSTEM.Areas.Identity.Pages.Account
 {
     [AllowAnonymous]
-    public class LogoutModel : PageModel
+    public class LogoutModel : Controller
     {
         private readonly SignInManager<IdentityUser> _signInManager;
         private readonly ILogger<LogoutModel> _logger;
@@ -25,19 +25,6 @@ namespace CMS_SYSTEM.Areas.Identity.Pages.Account
         public void OnGet()
         {
         }
-
-        public async Task<IActionResult> OnPost(string returnUrl = null)
-        {
-            await _signInManager.SignOutAsync();
-            _logger.LogInformation("User logged out.");
-            if (returnUrl != null)
-            {
-                return LocalRedirect(returnUrl);
-            }
-            else
-            {
-                return Page();
-            }
-        }
+      
     }
 }
