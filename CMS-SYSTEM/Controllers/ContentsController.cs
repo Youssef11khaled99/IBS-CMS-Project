@@ -156,6 +156,8 @@ namespace CMS_SYSTEM.Controllers
                         Title = model.Title + " Of " + websiteData.WebsiteName,
                         MetaDescription = model.MetaDesc + " Of " + model.Name + " Of " + widgetObj.Title,
                         Body = widgetData.HtmlBody,
+                        CreatedDate = DateTime.Now,
+                        CreatedBy=User.Identity.Name,
 
                         Pid = widgetParentObj.Id
                     };
