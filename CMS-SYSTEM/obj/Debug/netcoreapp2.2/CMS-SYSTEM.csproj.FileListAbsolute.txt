@@ -414,3 +414,6 @@ C:\Users\Donia\Documents\GitHub\IBS-CMS-Project\CMS-SYSTEM\obj\Debug\netcoreapp2
 C:\Users\Donia\Documents\GitHub\IBS-CMS-Project\CMS-SYSTEM\obj\Debug\netcoreapp2.2\CMS-SYSTEM.pdb
 C:\Users\Donia\Documents\GitHub\IBS-CMS-Project\CMS-SYSTEM\obj\Debug\netcoreapp2.2\Razor\Views\Profile\PostLogout.g.cshtml.cs
 C:\Users\Donia\Documents\GitHub\IBS-CMS-Project\CMS-SYSTEM\obj\Debug\netcoreapp2.2\Razor\Views\Profile\Container.g.cshtml.cs
+E:\IBSValley-Internship\C#\IBS-CMS-Project\CMS-SYSTEM\obj\Debug\netcoreapp2.2\Razor\Views\Profile\addPage.g.cshtml.cs
+E:\IBSValley-Internship\C#\IBS-CMS-Project\CMS-SYSTEM\obj\Debug\netcoreapp2.2\Razor\Views\Profile\PostLogout.g.cshtml.cs
+E:\IBSValley-Internship\C#\IBS-CMS-Project\CMS-SYSTEM\obj\Debug\netcoreapp2.2\Razor\Views\Profile\userHome.g.cshtml.cs

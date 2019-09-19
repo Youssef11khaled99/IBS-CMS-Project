@@ -284,10 +284,14 @@ namespace CMS_SYSTEM.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var websites = await _context.Websites.FindAsync(id);
-            websites.IsDeleted = !websites.IsDeleted;
-            _context.Update(websites);
-            //_context.UserWebsites.Remove(userWebsites);
+            var websitesID = await _context.Websites.FindAsync(id);
+            var userWebsitesID = await _context.UserWebsites.FindAsync(websitesID);
+            var widgetRow = await _context.Widget.FirstOrDefaultAsync(m => m.Title == websitesID.WebsiteName + "-Document");
+            _context.Widget.Remove(widgetRow);
+            websitesID.IsDeleted = true;
+            //_context.Update(websitesID);
+            _context.Websites.Remove(websitesID);
+            _context.UserWebsites.Remove(userWebsitesID);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }

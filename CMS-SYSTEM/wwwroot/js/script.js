@@ -12,9 +12,9 @@ var toggle = false;
         }
 
     }
-    let c = document.getElementById("mySidenav").children;
-    let i;
     function openNav() {
+        let c = document.getElementById("mySidenav").children;
+        let i;
         for (i = 0; i < c.length; i++) {
             c[i].style.fontSize =  "1.2rem";
         }
@@ -24,7 +24,9 @@ var toggle = false;
       //document.getElementById("bodyy").style.width = "71vw";
     }
     
-    function closeNav() {
+function closeNav() {
+        let c = document.getElementById("mySidenav").children;
+        let i;
         for (i = 0; i < c.length; i++) {
             c[i].style.fontSize =  "0.5rem";
         }
@@ -32,11 +34,6 @@ var toggle = false;
         document.getElementById("main").style.marginLeft = "0";
       //document.getElementById("bodyy").style.width = "85vw";
     }
-
-    function redirect() {
-        var url = "http://127.0.0.1:5500/index.html";
-        window.location = url;
-}
 
 
 ///AYA:  ADD WIDGET 
@@ -58,32 +55,27 @@ function delete_() {
     document.getElementById("container").remove();
 }
 
-function AddWidget() {
-    var widget = document.createElement("BUTTON");
-    var widgetText = document.createTextNode("Button 1");
-    widget.appendChild(widgetText);
-    document.getElementById("AddContentHere").appendChild(widget).attr('id', 'firstWidget');
-}
-
+var buttonCounter = 1;
+var currentID = 'widget-' + buttonCounter;
+console.log(currentID);
 function addJQwidget() {
     $('#AddContentHere').append(
-        $('<button>Button 1</button>').attr('id', 'firstWidget'));
+        $('<button>Button ' + buttonCounter + '</button>').attr('id', 'widget-' + buttonCounter));
+    buttonCounter++;
 }
 
 function moveLeft() {
-    document.getElementById("firstWidget").style = "float : left";
+    document.getElementById(currentID).style = "margin-right: auto;";
 }
 
 function moveCenter() {
-    if (document.getElementById("firstWidget").style.float == "left") {
-        document.getElementById("firstWidget").style = "margin-left : 225px"
-    }
-
-    if (document.getElementById("firstWidget").style.float == "right") {
-        document.getElementById("firstWidget").style = "margin-right : 225px"
+    if (document.getElementById(currentID).style.marginRight == "auto" || document.getElementById(currentID).style.marginRight == "") {
+        document.getElementById(currentID).style = "margin-left : 43%";
+    } else {
+        document.getElementById(currentID).style = "margin-right : 43%";
     }
 }
 
 function moveRight() {
-    document.getElementById("firstWidget").style = "float : right";
+    document.getElementById(currentID).style = " margin-left: auto;";
 }

@@ -11,67 +11,6 @@
 <hr />
 
 
-@*@if (Model.Count() == 0)
-    {
-        <h2>
-            There Is Now Websites Yet
-
-            <p>
-                <a asp-action="Create">Create New</a>
-            </p>
-        </h2>
-    }
-    else
-    {
-        <p>
-            <a asp-action="Create">Create New</a>
-        </p>
-        <table class="table">
-            <thead>
-                <tr>
-                    <th>
-                        @Html.DisplayNameFor(model => model.CreatedBy)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.DomainUrl)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.WebsiteName)
-                    </th>
-                    <th></th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var item in Model)
-                {
-                    @if (item.IsDeleted == false)
-                    {
-                        <tr>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.CreatedBy)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.DomainUrl)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.WebsiteName)
-                            </td>
-                            <td>
-                                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a> |
-                                <a asp-action="Open" asp-route-id="@item.Id">Open</a>
-                            </td>
-                        </tr>
-
-                    }
-                }
-            </tbody>
-        </table>
-
-    }*@
-
-
 <table class="table table-striped table-bordered text-center">
     <thead>
         <tr>
@@ -91,55 +30,45 @@
 
 
     AllWebsites();
+
     function AllWebsites() {
         $.get('/Profile/GetWebsites', function (data) {
-            var s = "", checkbox = "";
+            var s = "";
             $.each(data, function (i, v) {
-                checkbox = "";
-                console.log("state: " + v.isDeleted);
-                if (v.isDeleted == true) {
-                    console.log("Tmm");
-                    checkbox += '<td>' +
-                        '<label class="switch" >' +
-                            '<input type="checkbox" class="api-btn" onclick="redirect(' + v.id +');"/>' +
-                            '<span class="slider round"></span>' +
-                        '</label >' +
-                        '</td >';
-                } else {
-                    console.log("M$ Tmm");
-                    checkbox +=
+                if (v.isDeleted == false) {
+                    s += '<tr id="' + v.id + '">' +
+                        '<td>' + v.name + '</td>' +
+                        '<td>' + v.createdBy + '</td>' +
+                        '<td>' + v.domainUrl + '</td>' +
                         '<td>' +
+                        //'<button type="button" id="' + v.id + '" class="btn btn-warning" data-toggle="modal" onclick="GetWidget(id)" data-target="#editModel">Edit</button>' +
+                        //' | ' +
+                        //'<a href="/widget/details?id=' + v.id + '" class="btn btn-primary">View</a>' +
+
+                        '<a href="/Contents/Index?websiteId=' + v.id + '" class="disable btn btn-success">Widgets</a>' +
+                        ' | ' +
+                        '<a href="/Profile/Edit?id=' + v.id + '" class="disable btn btn-danger">Edit</a>' +
+                        ' | ' +
+                        '<a href="/Profile/Details?id=' + v.id + '" class="disable btn btn-warning">Details</a>' +
+                        ' | ' +
+                        '<a href="/Profile/Open?id=' + v.id + '" class="disable btn btn-primary">Open</a>' +
+                        ' | ' +
+                        '<a href="/Profile/AddUser?id=' + v.id + '" class="disable btn btn-primary">Add User</a>' +
+                        ' | ' + '<td>' +
                         '<label class="switch" >' +
-                            '<input type="checkbox" class="api-btn" onclick="redirect(' + v.id + ');" checked/>'+
-                            '<span class="slider round"></span>' +
+                        '<input type="checkbox" class="api-btn" onclick="redirect(' + v.id + ');" checked/>' +
+                        '<span class="slider round"></span>' +
                         '</label >' +
-                        '</td >';
+                        '</td >' +
 
+
+                        '</td>' +
+                        '</tr>';
                 }
-                s += '<tr id="' + v.id + '">' +
-                    '<td>' + v.name + '</td>' +
-                    '<td>' + v.createdBy + '</td>' +
-                    '<td>' + v.domainUrl + '</td>' +
-                    '<td>' +
-                    //'<button type="button" id="' + v.id + '" class="btn btn-warning" data-toggle="modal" onclick="GetWidget(id)" data-target="#editModel">Edit</button>' +
-                    //' | ' +
-                    //'<a href="/widget/details?id=' + v.id + '" class="btn btn-primary">View</a>' +
+               
+            }
 
-                    '<a href="/Contents/Index?websiteId=' + v.id + '" class="btn btn-success">Widgets</a>' +
-                    ' | ' +
-                    '<a href="/Profile/Edit?id=' + v.id + '" class="btn btn-danger">Edit</a>' +
-                    ' | ' +
-                    '<a href="/Profile/Details?id=' + v.id + '" class="btn btn-warning">Details</a>' +
-                    ' | ' +
-                    '<a href="/Profile/Open?id=' + v.id + '" class="btn btn-primary">Open</a>' +
-                    ' | ' +
-                    '<a href="/Profile/AddUser?id=' + v.id + '" class="btn btn-primary">Add User</a>' +
-                    ' | ' + checkbox +
-
-
-                    '</td>' +
-                    '</tr>';
-            });
+            );
             var tbody = $('.MyTbody');
             if (tbody != null) {
                 tbody.html('');
