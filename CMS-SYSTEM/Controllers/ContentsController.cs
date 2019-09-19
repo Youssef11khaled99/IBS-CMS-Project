@@ -157,7 +157,7 @@ namespace CMS_SYSTEM.Controllers
                         MetaDescription = model.MetaDesc + " Of " + model.Name + " Of " + widgetObj.Title,
                         Body = widgetData.HtmlBody,
                         CreatedDate = DateTime.Now,
-                        CreatedBy=User.Identity.Name,
+                        CreatedBy = User.Identity.Name,
 
                         Pid = widgetParentObj.Id
                     };
@@ -252,7 +252,7 @@ namespace CMS_SYSTEM.Controllers
                     _context.Content.Add(contentMaster);
                     _context.SaveChanges();
 
-                   
+
                 }
 
                 return Json(true);

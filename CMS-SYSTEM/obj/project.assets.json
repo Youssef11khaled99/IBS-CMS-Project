@@ -13759,11 +13759,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\IBS\\Project2\\CMS-SYSTEM\\CMS-SYSTEM.csproj",
+      "projectUniqueName": "D:\\IBS\\NEW@_CMS\\CMS-SYSTEM\\CMS-SYSTEM.csproj",
       "projectName": "CMS-SYSTEM",
-      "projectPath": "D:\\IBS\\Project2\\CMS-SYSTEM\\CMS-SYSTEM.csproj",
+      "projectPath": "D:\\IBS\\NEW@_CMS\\CMS-SYSTEM\\CMS-SYSTEM.csproj",
       "packagesPath": "C:\\Users\\Maj ED\\.nuget\\packages\\",
-      "outputPath": "D:\\IBS\\Project2\\CMS-SYSTEM\\obj\\",
+      "outputPath": "D:\\IBS\\NEW@_CMS\\CMS-SYSTEM\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"

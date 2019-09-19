@@ -4,7 +4,7 @@
     ViewData["Title"] = "Create New Content";
 }
 
-    <input type="text" id="websiteID" name="name" value="@ViewBag.WebId" />
+<input type="text" id="websiteID" name="name" value="@ViewBag.WebId" />
 
 <div class="container">
     <div class="row">
@@ -69,8 +69,8 @@
 
 
 @*<div>
-    <a class="btn btn-success" href="/Contents/Index?WebsiteId=@ViewBag.WebId">Back to List</a>
-</div>*@
+        <a class="btn btn-success" href="/Contents/Index?WebsiteId=@ViewBag.WebId">Back to List</a>
+    </div>*@
 
 
 
@@ -166,7 +166,7 @@
             };
             //alert("obj: " + obj.widgetList);
             var dataPost = JSON.stringify(obj);
-           // alert("DataPost: " + dataPost);
+            // alert("DataPost: " + dataPost);
 
             $.ajax({
                 type: 'Post',
