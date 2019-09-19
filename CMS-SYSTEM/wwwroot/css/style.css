@@ -1,89 +1,100 @@
-#deleteIcon{
-  float: right;
+/* Header Style */
+#header {
+    background-color: grey;
+    border-radius: 5px 5px 0px 0px;
+    height: 6vh;
+    width: 60vw;
 }
 
-#content{
-  background-color:#ded9d9;
-  height: 300px;
-  border-radius: 0px 0px 5px 5px;
+#header button {
+    width: 5vw;
+    height: 6vh;
 }
 
-#container{
-  width: 500px;
-  height: 350px;
-  margin: auto;
-  margin-top: 30px;
+#header button, #header button:focus {
+    outline: 0;
+    box-shadow: none !important;
 }
 
-#header{
-  background-color: grey;
-  border-radius: 5px 5px 0px 0px;
-  height: 50px;
+#deleteIcon {
+    float: right;
+    border-radius: 0px 5px 0px 0px;
 }
 
-#hideAndShow, #deleteIcon{
-  width: 50px;
-  height: 50px;
+#hideAndShow {
+    border-radius: 5px 0px 0px 0px;
+}
+/* End of Header */
+
+
+#container {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    margin: auto;
+    margin-top: 30px;
 }
 
-#hideAndShow{
-  border-radius: 5px 0px 0px 0px;
+#content {
+    position: relative;
+    background-color: #ded9d9;
+    width: 60vw;
+    height: 50vh;
 }
 
 
-#deleteIcon{
-  border-radius: 0px 5px 0px 0px;
+#hideAndShow:hover, #deleteIcon:hover {
+    box-shadow: none;
+    background-color: #ded9d9;
 }
 
-#hideAndShow:hover, #deleteIcon:hover{
-  box-shadow: none;
-  background-color:#ded9d9;
+#AddWidget {
+    margin: 32px 0px 0px 30px;
+    border-radius: 5px;
+    box-shadow: none;
+    position: absolute;
 }
 
-#AddWidget{
-  margin: 30px;
-  margin-top: 30px;
-  border-radius: 5px;
-  box-shadow: none;
+#AddWidget:hover {
+    background-color: grey;
 }
 
-#AddWidget:hover{
-  background-color: grey;
+#AddContentHere {
+    margin: auto;
+    width: 55vw;
+    height: 35vh;
+    display: flex;
+    align-items: baseline;
+    /* justify-content: space-between; */
+    flex-flow: row wrap;
+    overflow: auto;
+    background-color: #757171;
 }
 
-#AddContentHere{
-  margin: auto;
-  width: 450px;
-  height: 200px;
-  padding-top: 20px;
-  background-color: #757171;
+/* btn-Group */
+.btn-group {
+    display: flex;
+    justify-content: center;
+    position: absolute;
+    width: 100%;
+    top: 100%;
 }
 
 .btn-group button {
-  background-color: grey; 
-  border: 1px solid grey; 
-  color: white; 
-  padding: 10px 24px; 
-  cursor: pointer; 
-  width: 167px;
-  float: left;
-}
-
-.btn-group:after {
-  content: "";
-  clear: both;
-  display: table;
+    background-color: grey;
+    border: 1px solid grey;
+    color: white;
+    padding: 10px 24px;
+    cursor: pointer;
+    width: 20vw;
+    float: left;
 }
 
 .btn-group button:not(:last-child) {
-  border-right: none; 
+    border-right: none;
 }
 
 .btn-group button:hover {
-  background-color: black;
-}
-
-.btn-group{
-  margin-top: 30px;
-  margin-left: 224px;
+    background-color: black;
 }

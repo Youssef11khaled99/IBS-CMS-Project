@@ -12,9 +12,9 @@ var toggle = false;
         }
 
     }
-    let c = document.getElementById("mySidenav").children;
-    let i;
     function openNav() {
+        let c = document.getElementById("mySidenav").children;
+        let i;
         for (i = 0; i < c.length; i++) {
             c[i].style.fontSize =  "1.2rem";
         }
@@ -24,7 +24,9 @@ var toggle = false;
       //document.getElementById("bodyy").style.width = "71vw";
     }
     
-    function closeNav() {
+function closeNav() {
+        let c = document.getElementById("mySidenav").children;
+        let i;
         for (i = 0; i < c.length; i++) {
             c[i].style.fontSize =  "0.5rem";
         }
