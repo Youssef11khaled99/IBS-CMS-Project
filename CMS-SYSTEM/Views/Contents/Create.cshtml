@@ -1,59 +1,198 @@
 ﻿@model CMS_SYSTEM.Models.ViewModels.widgetContentViewModel
 
 @{
-    ViewData["Title"] = "Create New Widget";
+    ViewData["Title"] = "Create New Content";
 }
 
-<h1>Create New Widget</h1>
+<input type="text" id="websiteID" name="name" value="@ViewBag.WebId" />
 
-
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Create">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-
+<div class="container">
+    <div class="row">
+        <div class="col-md-6">
             <div class="form-group">
-                <label asp-for="WebsiteId" class="control-label"></label>
-                <input readonly asp-for="WebsiteId" class="form-control" />
+                <label for="email">Name</label>
+                <input type="text" class="form-control" id="contentName">
             </div>
+        </div>
+    </div>
 
+    <div class="row">
+        <div class="col-md-6">
             <div class="form-group">
-                <label asp-for="Title" class="control-label"></label>
-                <input asp-for="Title" class="form-control" />
-                <span asp-validation-for="Title" class="text-danger"></span>
-
+                <label for="pwd">Title:</label>
+                <input type="text" class="form-control" id="contentTitle">
             </div>
+        </div>
+    </div>
 
+    <div class="row">
+        <div class="col-md-6">
             <div class="form-group">
-                <label asp-for="Name" class="control-label"></label>
-                <input asp-for="Name" class="form-control" />
-                <span asp-validation-for="Name" class="text-danger"></span>
-
+                <label for="pwd">Description:</label>
+                <input type="text" class="form-control" id="contentDescription">
             </div>
+        </div>
+    </div>
 
+    <div class="row">
+        <div class="col-md-6">
             <div class="form-group">
-                <label asp-for="MetaDesc" class="control-label"></label>
-                <input asp-for="MetaDesc" class="form-control" />
-                <span asp-validation-for="MetaDesc" class="text-danger"></span>
+                <label class="control-label">
+                    Select Widget
+                </label>
+                <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#myModal">
+                    Widgets List
+                </button>
 
             </div>
+        </div>
+    </div>
 
-           
-
+    <div class="row">
+        <div class="col-md-6">
             <div class="form-group">
-                <label asp-for="SelectedWidgetId" class="control-label"></label>
-                <select asp-for="SelectedWidgetId" class="form-control" asp-items="ViewBag.WidgetsList"></select>
+                <button class="btn btn-primary" id="btnCreate">Create</button>
             </div>
+        </div>
+    </div>
 
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
+    <div class="row">
+
+    </div>
+
+    <div>
+        <a class="btn btn-success" href="/Contents/Index?WebsiteId=@ViewBag.WebId">Back to List</a>
+    </div>
+
+</div>
+
+
+
+@*<div>
+        <a class="btn btn-success" href="/Contents/Index?WebsiteId=@ViewBag.WebId">Back to List</a>
+    </div>*@
+
+
+
+
+
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title" id="exampleModalLabel">Widget List</h3>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
             </div>
-        </form>
+            <div class="modal-body">
+                <div class="container WidgetsCheckUl">
+
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal">Save</button>
+            </div>
+        </div>
     </div>
 </div>
 
-<div>
-    <a href="/Contents/Index?WebsiteId=@ViewBag.WebId">Back to List</a>
-</div>
+
+
+<style>
+    .widget {
+        display: inline-block;
+        margin: 15px;
+        border: 1px solid #eee;
+        box-shadow: 0 2px 2px #ccc;
+        width: 20px;
+        padding: 31px;
+        flex: 0 0 70% !important;
+        max-width: 1000px !important;
+    }
+
+    .modal-dialog {
+        width: 36000px !important;
+        height: 600px !important;
+    }
+
+    .row {
+        margin-right: 58px;
+        margin-left: -15px;
+    }
+</style>
+
+
+
+@section Scripts{
+
+    <script>
+
+        $.get('/Contents/GetWidgetsList', {}, function (d) {
+            var check = $('.WidgetsCheckUl');
+            $.each(d, function (i, v) {
+                check.append(
+                    $("<div class='row'><div class='col-md-6 widget'>" +
+                        "<input id =" + v.id + " type='checkbox' class='checkWidget' data-id=" + v.id + " value='" + v.id + "'/>" +
+                        "<label>" + v.title + "</label><br/><br/><div class='alert alert-dark'>" + v.htmlBody +
+                        "</div></div></div>"));
+
+            });
+        }, "json")
+
+        $('#btnCreate').click(function () {
+            var objWidgets = [];
+            $('input.checkWidget:checkbox:checked').each(function () {
+                objWidgets.push($(this).val());
+
+                //alert(objWidgets);
+            });
+
+            var webId = $("#websiteID").val();
+            var Name = $("#contentName").val();
+            var contentTitle = $("#contentTitle").val();
+            var contentDescription = $("#contentDescription").val();
+
+            var obj = {
+                'widgetList': objWidgets,
+                'WebsiteId': webId,
+                'Title': contentTitle,
+                'Name': Name,
+                'MetaDesc': contentDescription
+
+            };
+            //alert("obj: " + obj.widgetList);
+            var dataPost = JSON.stringify(obj);
+            // alert("DataPost: " + dataPost);
+
+            $.ajax({
+                type: 'Post',
+                datatype: 'json',
+                contentType: 'application/json',
+                data: dataPost,
+                url: '/Contents/CreateContent',
+                success: function () {
+                    $('input.checkWidget:checkbox:checked').each(function () {
+                        $(this).val('');
+                    });
+
+                    $('input').val('');
+
+                },
+                error: function () {
+                    $('input.checkWidget:checkbox:checked').each(function () {
+                        $(this).val('');
+                    });
+                    $('input').val('');
+
+                }
+            });
+        })
+
+    </script>
+
+}
 
