@@ -4,7 +4,7 @@
     ViewData["Title"] = "Create New Content";
 }
 
-<input type="text" id="websiteID" name="name" value="@ViewBag.WebId" />
+<input type="hidden" id="websiteID" name="name" value="@ViewBag.WebId" />
 
 <div class="container">
     <div class="row">
@@ -43,7 +43,6 @@
                 <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#myModal">
                     Widgets List
                 </button>
-
             </div>
         </div>
     </div>
@@ -131,13 +130,16 @@
 
     <script>
 
+        var websiteID = $("#websiteID").val();
+
         $.get('/Contents/GetWidgetsList', {}, function (d) {
             var check = $('.WidgetsCheckUl');
             $.each(d, function (i, v) {
                 check.append(
                     $("<div class='row'><div class='col-md-6 widget'>" +
                         "<input id =" + v.id + " type='checkbox' class='checkWidget' data-id=" + v.id + " value='" + v.id + "'/>" +
-                        "<label>" + v.title + "</label><br/><br/><div class='alert alert-dark'>" + v.htmlBody +
+                        v.title +
+                        "<div class='alert alert-dark'>" + v.htmlBody +
                         "</div></div></div>"));
 
             });
@@ -174,12 +176,38 @@
                 contentType: 'application/json',
                 data: dataPost,
                 url: '/Contents/CreateContent',
-                success: function () {
-                    $('input.checkWidget:checkbox:checked').each(function () {
-                        $(this).val('');
-                    });
+                success: function (data) {
 
-                    $('input').val('');
+                    if (data == "widgetEmpty") {
+                        alert("PLZ Select only one Widget From Widgets List Button");
+                        return false;
+
+                    }
+                    else if (data == "emptyModel") {
+                        alert("PLZ Insert Name,Title and Description !");
+                        return false;
+
+                    }
+                        else if (data == "moreThanOneWidget") {
+                        alert("PLZ Select only one Widget From Widgets List Button");
+                        return false;
+
+                    }
+                    else if (data == true) {
+                        $('input.checkWidget:checkbox:checked').each(function () {
+                            $(this).val('');
+                        });
+
+                        $('input').val('');
+
+                        alert("Added Successfuly !!");
+                        window.location.href = '/Contents/Index?WebsiteId=' + websiteID
+                    }
+                    else {
+                        alert("Unexpected Error!");
+                        return false;
+                    }
+
 
                 },
                 error: function () {

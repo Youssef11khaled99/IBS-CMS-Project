@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\IBS\\NEW@_CMS\\CMS-SYSTEM\\CMS-SYSTEM.csproj": {}
+    "D:\\IBS_INTERN\\CMS-SYSTEM\\CMS-SYSTEM.csproj": {}
   },
   "projects": {
-    "D:\\IBS\\NEW@_CMS\\CMS-SYSTEM\\CMS-SYSTEM.csproj": {
+    "D:\\IBS_INTERN\\CMS-SYSTEM\\CMS-SYSTEM.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\IBS\\NEW@_CMS\\CMS-SYSTEM\\CMS-SYSTEM.csproj",
+        "projectUniqueName": "D:\\IBS_INTERN\\CMS-SYSTEM\\CMS-SYSTEM.csproj",
         "projectName": "CMS-SYSTEM",
-        "projectPath": "D:\\IBS\\NEW@_CMS\\CMS-SYSTEM\\CMS-SYSTEM.csproj",
+        "projectPath": "D:\\IBS_INTERN\\CMS-SYSTEM\\CMS-SYSTEM.csproj",
         "packagesPath": "C:\\Users\\Maj ED\\.nuget\\packages\\",
-        "outputPath": "D:\\IBS\\NEW@_CMS\\CMS-SYSTEM\\obj\\",
+        "outputPath": "D:\\IBS_INTERN\\CMS-SYSTEM\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"

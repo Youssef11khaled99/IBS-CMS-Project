@@ -109,154 +109,143 @@ namespace CMS_SYSTEM.Controllers
              * 5- Add New Content
              */
 
-            int websiteId = model.WebsiteId;
-            var websiteData = _context.Websites.SingleOrDefault(n => n.Id == websiteId);
-
-            int parentId = _context.Widget.SingleOrDefault(p => p.Title.Contains(websiteData.WebsiteName + "-Document")
-                                                           && p.CreatedBy == websiteData.CreatedBy).Id;
-            string fullWidgetHtml = "";
-
-            if (model.widgetList.Count() > 1)
+            if (model.widgetList.Count() == 0)
             {
+                return Json("widgetEmpty");
+            }
 
-                for (int i = 0; i < model.widgetList.Count(); i++)
-                {
-                    var widgetData = _context.Widget.SingleOrDefault(w => w.Id == model.widgetList[i]);
-                    fullWidgetHtml += widgetData.HtmlBody;
+            else if (model.widgetList.Count() > 1)
+            {
+                return Json("moreThanOneWidget");
+            }
 
-                    Widget widgetObj = new Widget
-                    {
-                        Title = websiteData.WebsiteName + "-" + widgetData.Title,
-                        CreatedDate = DateTime.Now,
-                        CreatedBy = User.Identity.Name,
-                        // 16 =>  widget ID type that refers to a widgets created by user
-                        WidgetTypeId = 16,
-                        HtmlBody = widgetData.HtmlBody
-                    };
-                    _context.Widget.Add(widgetObj);
-                    _context.SaveChanges();
-
-                    int currentAddedWidgetID = widgetObj.Id;
-
-                    WidgetParent widgetParentObj = new WidgetParent
-                    {
-                        WebsitesId = websiteId,
-                        Wid = currentAddedWidgetID,
-                        Pid = parentId
-                    };
-
-                    _context.WidgetParent.Add(widgetParentObj);
-                    _context.SaveChanges();
-
-                    int currentAddedWidgetParentId = widgetParentObj.Id;
-
-                    Content contentObj = new Content
-                    {
-                        Name = model.Name + " Of " + widgetObj.Title,
-                        Title = model.Title + " Of " + websiteData.WebsiteName,
-                        MetaDescription = model.MetaDesc + " Of " + model.Name + " Of " + widgetObj.Title,
-                        Body = widgetData.HtmlBody,
-                        CreatedDate = DateTime.Now,
-                        CreatedBy = User.Identity.Name,
-
-                        Pid = widgetParentObj.Id
-                    };
-                    _context.Content.Add(contentObj);
-                    _context.SaveChanges();
-
-                }
-
-                Widget widgetMaster = new Widget
-                {
-                    Title = websiteData.WebsiteName + "-" + "Master",
-                    CreatedDate = DateTime.Now,
-                    CreatedBy = User.Identity.Name,
-                    // 16 =>  widget ID type that refers to a widgets created by user
-                    WidgetTypeId = 16,
-                    HtmlBody = fullWidgetHtml
-                };
-                _context.Widget.Add(widgetMaster);
-                _context.SaveChanges();
-
-                int widgetMasterId = widgetMaster.Id;
-
-                WidgetParent widgetParentMaster = new WidgetParent
-                {
-                    WebsitesId = websiteId,
-                    Wid = widgetMasterId,
-                    Pid = parentId
-                };
-                _context.WidgetParent.Add(widgetParentMaster);
-                _context.SaveChanges();
-
-                int widgetParentMasterId = widgetParentMaster.Id;
-
-                Content contentMaster = new Content
-                {
-                    Name = model.Name + " Of " + widgetMaster.Title,
-                    Title = model.Title + " Of " + websiteData.WebsiteName,
-                    MetaDescription = model.MetaDesc + " Of " + model.Name + " Of " + widgetMaster.Title,
-                    Body = fullWidgetHtml,
-                    CreatedDate = DateTime.Now,
-                    CreatedBy = User.Identity.Name,
-                    Pid = widgetParentMasterId
-                };
-                _context.Content.Add(contentMaster);
-                _context.SaveChanges();
-
-                return Json(true);
-
-
+            else if (model.Name == "" || model.MetaDesc == "" || model.Title == "")
+            {
+                return Json("emptyModel");
             }
             else
             {
-                for (int j = 0; j < model.widgetList.Count(); j++)
+                int websiteId = model.WebsiteId;
+                var websiteData = _context.Websites.SingleOrDefault(n => n.Id == websiteId);
+
+                int parentId = _context.Widget.SingleOrDefault(p => p.Title.Contains(websiteData.WebsiteName + "-Document")
+                                                               && p.CreatedBy == websiteData.CreatedBy).Id;
+                string fullWidgetHtml = "";
+
+                if (model.widgetList.Count() > 1)
                 {
-                    var widgetData = _context.Widget.SingleOrDefault(x => x.Id == model.widgetList[j]);
+
+                    for (int i = 0; i < model.widgetList.Count(); i++)
+                    {
+                        var widgetData = _context.Widget.SingleOrDefault(w => w.Id == model.widgetList[i]);
+                        fullWidgetHtml += widgetData.HtmlBody + "<br>";
+                    }
 
                     Widget widgetMaster = new Widget
                     {
-                        Title = websiteData.WebsiteName + "-" + "Master",
+                        Title = websiteData.WebsiteName + "-Template",
                         CreatedDate = DateTime.Now,
                         CreatedBy = User.Identity.Name,
                         // 16 =>  widget ID type that refers to a widgets created by user
                         WidgetTypeId = 16,
-                        HtmlBody = widgetData.HtmlBody
+                        HtmlBody = fullWidgetHtml
                     };
                     _context.Widget.Add(widgetMaster);
                     _context.SaveChanges();
 
-                    int widgetMasterId = widgetMaster.Id;
+                    //int widgetMasterId = widgetMaster.Id;
 
-                    WidgetParent widgetParentMaster = new WidgetParent
+                    for (int w = 0; w < model.widgetList.Count(); w++)
                     {
-                        WebsitesId = websiteId,
-                        Wid = widgetMasterId,
-                        Pid = parentId
-                    };
-                    _context.WidgetParent.Add(widgetParentMaster);
-                    _context.SaveChanges();
+                        WidgetParent widgetParentMaster = new WidgetParent
+                        {
+                            WebsitesId = websiteId,
+                            Wid = model.widgetList[w],
+                            Pid = parentId
+                        };
+                        _context.WidgetParent.Add(widgetParentMaster);
+                        _context.SaveChanges();
 
-                    int widgetParentMasterId = widgetParentMaster.Id;
+                        int widgetParentMasterId = widgetParentMaster.Id;
 
-                    Content contentMaster = new Content
-                    {
-                        Name = model.Name + " Of " + widgetMaster.Title,
-                        Title = model.Title + " Of " + websiteData.WebsiteName,
-                        MetaDescription = model.MetaDesc + " Of " + model.Name + " Of " + widgetMaster.Title,
-                        Body = widgetData.HtmlBody,
-                        CreatedDate = DateTime.Now,
-                        CreatedBy = User.Identity.Name,
-                        Pid = widgetParentMasterId
-                    };
-                    _context.Content.Add(contentMaster);
-                    _context.SaveChanges();
+                        string htmlOfWidget = _context.Widget.SingleOrDefault(h => h.Id == model.widgetList[w]).HtmlBody;
+
+                        Content contentMaster = new Content
+                        {
+                            Name = model.Name,
+                            Title = model.Title,
+                            MetaDescription = model.MetaDesc,
+                            Body = htmlOfWidget,
+                            CreatedDate = DateTime.Now,
+                            CreatedBy = User.Identity.Name,
+                            Lid = 1,
+                            Pid = widgetParentMasterId
+                        };
+                        _context.Content.Add(contentMaster);
+                        _context.SaveChanges();
+                    }
+
+
+                    return Json(true);
 
 
                 }
+                else
+                {
+                    for (int j = 0; j < model.widgetList.Count(); j++)
+                    {
+                        #region Hashed_Code
+                        var widgetData = _context.Widget.SingleOrDefault(x => x.Id == model.widgetList[j]);
 
-                return Json(true);
+                        //Widget widgetMaster = new Widget
+                        //{
+                        //    Title = websiteData.WebsiteName + "-" + "Master",
+                        //    CreatedDate = DateTime.Now,
+                        //    CreatedBy = User.Identity.Name,
+                        //    // 16 =>  widget ID type that refers to a widgets created by user
+                        //    WidgetTypeId = 16,
+                        //    HtmlBody = widgetData.HtmlBody
+                        //};
+                        //_context.Widget.Add(widgetMaster);
+                        //_context.SaveChanges();
+
+                        //int widgetMasterId = widgetMaster.Id;
+                        #endregion
+
+
+                        WidgetParent widgetParentMaster = new WidgetParent
+                        {
+                            WebsitesId = websiteId,
+                            Wid = model.widgetList[j],
+                            Pid = parentId
+                        };
+                        _context.WidgetParent.Add(widgetParentMaster);
+                        _context.SaveChanges();
+
+                        int widgetParentMasterId = widgetParentMaster.Id;
+
+                        Content contentMaster = new Content
+                        {
+                            Name = model.Name,
+                            Title = model.Title,
+                            MetaDescription = model.MetaDesc,
+                            Body = widgetData.HtmlBody,
+                            CreatedDate = DateTime.Now,
+                            CreatedBy = User.Identity.Name,
+                            Lid = 1,
+                            Pid = widgetParentMasterId
+                        };
+                        _context.Content.Add(contentMaster);
+                        _context.SaveChanges();
+
+
+                    }
+
+                    return Json(true);
+                }
             }
+
+
 
 
 
@@ -482,13 +471,15 @@ namespace CMS_SYSTEM.Controllers
         public JsonResult GetWidgetsList()
         {
 
-            var widgetsData = _context.Widget.Where(w => !w.Title.Contains("-Document")).Select(a => new
-            {
-                id = a.Id,
-                htmlBody = a.HtmlBody,
-                title = a.Title
+            var widgetsData = _context.Widget/*.Where(x => x.CreatedBy != User.Identity.Name)*/
+                                             .Where(w => !w.Title.Contains("-Document") && !w.Title.Contains("-Template"))
+                                             .Select(a => new
+                                             {
+                                                 id = a.Id,
+                                                 htmlBody = a.HtmlBody,
+                                                 title = a.Title
 
-            }).ToList();
+                                             }).ToList();
 
             return Json(widgetsData);
         }
