@@ -285,7 +285,7 @@ namespace CMS_SYSTEM.Controllers
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var websitesID = await _context.Websites.FindAsync(id);
-            var userWebsitesID = await _context.UserWebsites.FindAsync(websitesID);
+            var userWebsitesID = await _context.UserWebsites.FindAsync(websitesID.Id);
             var widgetRow = await _context.Widget.FirstOrDefaultAsync(m => m.Title == websitesID.WebsiteName + "-Document");
             _context.Widget.Remove(widgetRow);
             websitesID.IsDeleted = true;
