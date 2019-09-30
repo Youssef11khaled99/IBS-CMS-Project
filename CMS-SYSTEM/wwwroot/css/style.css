@@ -98,3 +98,17 @@
 .btn-group button:hover {
     background-color: black;
 }
+
+.table {
+    color: white;
+    background-color: #4986bb;
+}
+
+.table > tbody > tr:nth-of-type(odd) {
+    background-color: #b1c5ff;
+    color:black;
+}
+    .table > tbody > tr:nth-of-type(even) {
+        background-color: #728fe6;
+        color: cornsilk;
+    }

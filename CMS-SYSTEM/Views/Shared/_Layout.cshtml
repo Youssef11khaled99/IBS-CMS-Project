@@ -1,4 +1,8 @@
-﻿<!DOCTYPE html>
+﻿@using Microsoft.AspNetCore.Identity
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
@@ -21,7 +25,7 @@
     </environment>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    @*<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">*@
     <link rel="stylesheet" href="~/css/site.css" />
     <link rel="stylesheet" href="~/css/style.css" />
     <link rel="stylesheet" href="~/css/userHome.css" />
@@ -36,32 +40,60 @@
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>*@
-            <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
+            @*<div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">*@
+            @if (SignInManager.IsSignedIn(User))
+            {
+                <div id="mySidenav" class="sidenav">
+                    <a href="~/Profile/Create"><i class="fa fa-file-code-o"></i> Create Website</a>
+                    <a href="~/Profile/Index"><i class="fa fa-plus"></i> Profile</a>
+                    @*  <a href="Profile/AddUser"><i class="fa fa-user-plus"></i> Add Users</a>*@
+                    <a href="#"><i class="fa fa-cogs"></i> Settings</a>
+                </div>
+                <nav>
+                    <div class="menuIconContainer" onclick="switchNavbar(); menuIcon(this);">
+                        <div class="bar1"></div>
+                        <div class="bar2"></div>
+                        <div class="bar3"></div>
+                    </div>
+                    <ul>
+                        <li><a href="./home.html">Home</a></li>
+                        <li style="float:right"><a class="active fa fa-sign-out" href="~/Profile/PostLogout"> Log out </a></li>
+                        <li style="float:right"><a href="/Account/Manage/Index" class="fa fa-user"> Hello @User.Identity.Name!</a></li>
+
+
+                    </ul>
+                </nav>
+            }
+            else
+            {
+
                 <partial name="_LoginPartial" />
-                @*<ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Profile" asp-action="userHome">Profile</a>
-                        </li>
-                    </ul>*@
-            </div>
+            }
+
+            @*<ul class="navbar-nav flex-grow-1">
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" asp-area="" asp-controller="Profile" asp-action="userHome">Profile</a>
+                    </li>
+                </ul>*@
+            </@*div*@>
         </div>
         @*</nav>*@
     </header>
     <div class="container">
         <partial name="_CookieConsentPartial" />
-        <main role="main" class="pb-3">
+        <main role="main" class="pb-3" style="color:white">
             @RenderBody()
         </main>
     </div>
 
     <footer class="border-top footer text-muted">
-        <div class="container">
+        <div class="container container-2">
             &copy; 2019 - CMS_SYSTEM - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
         </div>
     </footer>
@@ -89,7 +121,7 @@
     <script src="~/js/script.js" asp-append-version="true"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
-    
+
 
     @RenderSection("Scripts", required: false)
 </body>
